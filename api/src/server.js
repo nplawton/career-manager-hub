@@ -20,8 +20,7 @@ app.use(
 app.get("/students", async (req, res, next) =>{
   const results = await db.query(`SELECT student.*, service_manager.tscm_first, service_manager.tscm_last
                                   FROM student 
-                                  JOIN service_manager ON service_manager.tscm_id = student.tscm_id
-                                  GROUP BY student.student_id`)
+                                  JOIN service_manager ON service_manager.tscm_id = student.tscm_id`)
                           .catch(next);
   res.send(results.rows)
 })
