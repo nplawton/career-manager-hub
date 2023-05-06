@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { EventsContext } from '../../context/eventsContext';
 import { StudentsContext } from '../../context/studentsContext';
 import { ManagersContext } from '../../context/managersContext';
+import StudentCardsList from './StudentCardsList';
 
 export default function CareerServicesHub() {
 
@@ -19,7 +20,7 @@ export default function CareerServicesHub() {
 
   return (
     <div>
-      
+      <StudentCardsList/>
     </div>
   )
 }
