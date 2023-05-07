@@ -1,0 +1,42 @@
+.student-card {
+    background-color:rgba(235, 235, 235, 0.3);
+    height: 150px;
+    width: 150px;
+    border: none;
+    padding: 5%;
+    text-align: center;
+    border-radius: 10px;
+    margin: 2%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.student-card-name {
+    display:block;
+    font-size:100%;
+    margin:5%;
+    border:none;
+    border-radius:10px;
+    padding:3%;
+    white-space: nowrap;
+
+}
+
+.student-card-cohort {
+    display:block;
+    font-size:100%;
+    margin:5%;
+    border:none;
+    border-radius:10px;
+    padding:3%;
+    white-space: nowrap;
+}
+
+.student-card-manager {
+    display:block;
+    font-size:100%;
+    margin:5%;
+    border:none;
+    border-radius:10px;
+    padding:3%;
+    white-space: nowrap;
+}

@@ -49,11 +49,12 @@ app.post("/students", async (req, res, next) => {
   const lastName = req.body.student_last;
   const cohort = req.body.cohort;
   const sercurityClearance = req.body.sec_clearance;
-  const hired = req.body.hired;
+  const careerStatus = req.body.career_status;
+  const courseStatus = req.body.course_status;
   const tscm_id = req.body.tscm_id;
 
   const result = await db
-    .query("INSERT INTO student(student_first, student_last, cohort, sec_clearance, hired, tscm_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [firstName, lastName, cohort, sercurityClearance, hired, tscm_id])
+    .query("INSERT INTO student(student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", [firstName, lastName, cohort, sercurityClearance, careerStatus, courseStatus, tscm_id])
     .catch(next);
   res.send(result.rows[0]);
 })
@@ -65,11 +66,12 @@ app.patch("/students/:id", async (req, res, next) => {
   const lastName = req.body.student_last;
   const cohort = req.body.cohort;
   const sercurityClearance = req.body.sec_clearance;
-  const hired = req.body.hired;
+  const careerStatus = req.body.career_status;
+  const courseStatus = req.body.course_status;
   const tscm_id = req.body.tscm_id;
 
   const result = await db
-    .query("UPDATE student SET student_first = $1, student_last = $2, cohort = $3, sec_clearance = $4, hired = $5, tscm_id = $6 WHERE student_id = $7 RETURNING *", [firstName, lastName, cohort, sercurityClearance, hired, tscm_id, id])
+    .query("UPDATE student SET student_first = $1, student_last = $2, cohort = $3, sec_clearance = $4, career_status = $5, course_status = $6, tscm_id = $7 WHERE student_id = $8 RETURNING *", [firstName, lastName, cohort, sercurityClearance, careerStatus, courseStatus, tscm_id, id])
     .catch(next);
   res.send(result.rows[0]);
 })

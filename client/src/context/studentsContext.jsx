@@ -3,25 +3,29 @@ import React, { useState, useEffect, createContext } from "react";
 export const StudentsContext = createContext();
 
 export function StudentsContextProvider ({children}) {
-    const [studentsData, setStudentsData] = useState(['null']);
-    const fullStudent = [];
+    const [studentsData, setStudentsData] = useState(null);
 
     useEffect(() =>{
-        fetch('http://localhost:8000/students')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(student => {
-                    fetch(`http://localhost:8000/students/${student.student_id}/milestones`)
-                    .then(response => response.json())
-                    .then(data => {
-                        student.milestones = data;
-                        fullStudent.push(student);
-                    })
-                    .catch(error => console.log(error))
-                })
-                setStudentsData(fullStudent)
-            })
-            .catch(error => console.log(error))
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/students');
+                const students = await response.json();
+                const fullStudents = [];
+
+                for (const student of students) {
+                    const milestonesResponse = await fetch(`http://localhost:8000/students/${student.student_id}/milestones`);
+                    const milestones = await milestonesResponse.json();
+                    student.milestones = milestones;
+                    fullStudents.push(student);
+                }
+
+                setStudentsData(fullStudents);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return(
