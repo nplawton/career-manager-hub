@@ -16,7 +16,8 @@ CREATE TABLE student (
   student_last VARCHAR(50) NOT NULL,
   cohort VARCHAR(50) NOT NULL,
   sec_clearance TEXT,
-  hired boolean,
+  career_status TEXT,
+  course_status TEXT,
   tscm_id INTEGER NOT NULL,
   FOREIGN KEY (tscm_id) REFERENCES service_manager (tscm_id)
 );
