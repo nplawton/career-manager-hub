@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { EventsContext } from '../../context/eventsContext';
 import { StudentsContext } from '../../context/studentsContext';
 import { ManagersContext } from '../../context/managersContext';
+import StudentCardsList from './StudentCardsList';
 
 import ExcelImportButton from './Excel Import Button/ExcelImportButton'
 
@@ -21,6 +22,7 @@ export default function CareerServicesHub() {
 
   return (
     <div>
+      <StudentCardsList/>
       < ExcelImportButton />
     </div>
   )
