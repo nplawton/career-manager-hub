@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.module.css";
+import LoginInPage from "../logIn/logInPage.jsx";
 
 import { EventsContextProvider } from '../../context/eventsContext'
 import { StudentsContextProvider } from '../../context/studentsContext'
@@ -13,6 +14,7 @@ const App = () => {
     <EventsContextProvider>
       <StudentsContextProvider>
           <ManagersContextProvider>
+            <LoginInPage />
               <CareerServicesHub />
           </ManagersContextProvider>
         </StudentsContextProvider>

@@ -4,9 +4,12 @@ const cors = require('cors');
 
 const db = new Pool({ connectionString: process.env.DATABASE_URL });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT
 
 const app = express();
+
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 app.use(express.json());
 
@@ -156,6 +159,28 @@ app.patch("/managers/:id", async (req, res, next) => {
     .query("UPDATE service_manager SET tscm_first = $1, tscm_last = $2, login_id = $3, tscm_password = $4, tscm_email = $5, tscm_avatar = $6  WHERE tscm_id = $7 RETURNING *", [firstName, lastName, login_id, password, email, avatar, id])
     .catch(next);
   res.send(result.rows[0]);
+})
+
+app.post('/managers/login', async (req, res, next) => {
+  const email = req.body.email;
+  const inputPassword = req.body.password;
+
+  try {
+    const results = await db.query('SELECT * FROM service_manager WHERE tscm_email = $1', [email])
+    const manager = results.rows[0]
+
+    if(!manager) {
+      return res.status(404).json({message: 'Incorrect Password or Email'})
+    }
+
+    if(manager.tscm_password === inputPassword) {
+      res.json({ success: true, manager })
+    }
+  } catch (error) {
+    console.error('error idk bro 🤷' , error)
+    res.status(500).json({ message: 'idk bro 🤷'})
+    console.log('bad')
+  }
 })
 
 // Need to think about this more, because we need to update student records and calendar records BEFORE we delete any manager records otherwise we are violating foreign keys
