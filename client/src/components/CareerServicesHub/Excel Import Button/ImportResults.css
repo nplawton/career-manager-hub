@@ -1,5 +1,7 @@
-.import-results-container{
+.import-results-table{
     display: table;
+    width: 95%;
+    margin: auto;
 }
 
 .results-student-row{
@@ -8,11 +10,27 @@
 
 .results-student-cell{
     display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin: 5px;
+
+    border: solid black 1px;
+}
+
+.header{
+    color: white;
+    background-color: rgb(240, 159, 9, 0.8);
+
+    font-weight: 900;
     padding: 5px;
 }
 
-.results-upload-button{
-    display: flex;
-    justify-content: center;
-    margin: 20px
+.results-upload-button-container{
+   width: 100%;
+
+   display: flex;
+   justify-content: center;
+
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
