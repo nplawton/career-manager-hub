@@ -9,32 +9,41 @@ const db = new Pool({
     port: 5432 
 });
 
-const SEED_STUDENT_ROWS = 200;
-const cohorts = ['cohort 16', 'cohort 17', 'cohort 18', 'cohort 19', 'cohort 20', 'cohort 21', 'cohort 22'];
+const cohorts = ['MCSP-16', 'MCSP-17', 'MCSP-18', 'MCSP-19', 'MCSP-20', 'MCSP-21', 'MCSP-22'];
+const careerStatus = ['Searching', 'Hired', 'Not Started'];
+const courseStatus = ['Student', 'Graduate'];
+const secClearance = ['None', 'SECRET', 'TOP SECRET', 'TOP SECRET//SCI'];
+
 const SEED_CAREER_MANAGER = 7;
+const SEED_STUDENT_ROWS = 200;
 
 const seedStudents = async () => {
     const studentList = [];
 
     for (let i = 0; i < SEED_STUDENT_ROWS; i++){
+        let randomNumber = Math.floor(Math.random() * 3);
+        let randomNumber2 = Math.floor(Math.random() * 2);
+        let randomNumber3 = Math.floor(Math.random() * 4);
+
         studentList.push({
             student_first: faker.name.firstName(),
             student_last: faker.name.lastName(),
             cohort: faker.random.arrayElement(cohorts),
-            sec_clearance: "TS/SCI",
-            hired: false,
+            sec_clearance: secClearance[randomNumber3],
+            career_status: careerStatus[randomNumber],
+            course_status: courseStatus[randomNumber2],
             tscm__id: faker.datatype.number({ min: 1, max: 7 }),
         });
     }
 
     try {
-        const queryString = `INSERT INTO student (student_first, student_last, cohort, sec_clearance, hired, tscm_id) 
-                    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+        const queryString = `INSERT INTO student (student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm_id) 
+                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
         for (let i = 0; i < SEED_STUDENT_ROWS; i++){
             console.log(`seeded ${i} students!`);
-            const {student_first, student_last, cohort, sec_clearance, hired, tscm__id} = studentList[i];
-            await db.query(queryString, [student_first, student_last, cohort, sec_clearance, hired, tscm__id]);
+            const {student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm__id} = studentList[i];
+            await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm__id]);
         }
 
         console.log('Students seeded successfully');
