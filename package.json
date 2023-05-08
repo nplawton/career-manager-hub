@@ -12,10 +12,5 @@
   "devDependencies": {
     "concurrently": "^7.1.0",
     "prettier": "^2.8.4"
-  },
-  "dependencies": {
-    "faker": "^6.6.6",
-    "nodemon": "^2.0.22",
-    "pg": "^8.10.0"
   }
 }

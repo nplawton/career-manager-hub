@@ -1,9 +1,0 @@
-.student-card-container {
-  display: grid;
-  width: 100%;
-  padding: 5px;
-  border:solid red 2px;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  grid-gap: 5px;
-  align-items: stretch;
-}
