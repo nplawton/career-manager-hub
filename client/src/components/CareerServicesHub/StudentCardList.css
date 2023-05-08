@@ -1,7 +1,12 @@
 .student-card-container {
   display: grid;
-  width: 100%;
-  padding: 5px;
+  width: 90vw;
+  height: 50vh;
+
+  overflow: auto;
+
+  padding: 15px;
+
   border:solid red 2px;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   grid-gap: 5px;
