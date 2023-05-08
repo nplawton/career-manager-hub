@@ -1,0 +1,18 @@
+.import-results-container{
+    display: table;
+}
+
+.results-student-row{
+    display: table-row;
+}
+
+.results-student-cell{
+    display: table-cell;
+    padding: 5px;
+}
+
+.results-upload-button{
+    display: flex;
+    justify-content: center;
+    margin: 20px
+}
