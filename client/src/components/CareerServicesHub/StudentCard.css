@@ -1,6 +1,6 @@
 .student-card {
     background-color:rgba(235, 235, 235, 0.3);
-    height: 150px;
+    height: fit-content;
     width: 150px;
     border: none;
     padding: 5%;
@@ -8,6 +8,15 @@
     border-radius: 10px;
     margin: 2%;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.student-card:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color:rgb(68, 66, 66);
+    color: white;
+
+    transition: ease 0.4s;
 }
 
 .student-card-name {

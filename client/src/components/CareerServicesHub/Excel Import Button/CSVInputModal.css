@@ -1,26 +1,23 @@
 .modal-backdrop{
     display: flex;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 
-    position: absolute;
+    position: fixed;
     z-index: 2;
     top: 0;
     left: 0;
 
-    background-color: rgb(5, 5, 230);
-    opacity: .6;
+    background-color: rgb(5, 5, 230, .6);
 }
 
 .import-modal-container{
     height: fit-content;
-    width: 45vw;
+    width: 55vw;
 
     margin: auto;
 
-    backdrop-filter: blur(10px);
-
-    background-color: white;
+    background-color: rgb(255, 255, 255, 1);
     border-radius: 10px;
     
     animation: fadeDownIn 1s;
@@ -36,12 +33,12 @@
 .import-button-container{
     display: flex;
     width: 100%;
-    height: 60%;
+    height: 65%;
 
     justify-content: center;
     align-items: center;
 
-    border-top: solid rgb(5, 5, 230, 0.8) 10px;
+    border-top: solid rgb(5, 5, 230, 0.6) 10px;
 }
 
 .container-off{
@@ -50,9 +47,76 @@
 
 .container-on{
     width: 100%;
-    height: 60vh;
+    height: 45vh;
 
     overflow: auto;
+}
+
+.exit-button{
+    display: flex;
+    justify-content: end;
+    margin: 15px;
+}
+
+.exit-button:hover{
+    cursor: pointer;
+}
+
+.import-modal-description-container{
+    display:flex; 
+    flex-direction:column;
+    
+    width: 95%;
+    margin: 10px;
+}
+
+.import-modal-description-text{
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+}
+
+.import-button-container{
+    display: flex; 
+    flex-direction:column;
+    justify-content: center;
+    
+    width: 100%;
+
+    margin-bottom: 10px;
+    border-bottom: solid rgb(5, 5, 230, 0.6) 10px;
+}
+
+.import-button-container-inputs{ 
+    display: flex;  
+    flex-direction:column;
+    justify-content: center;
+
+    width: 45%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.import-button-input-MCSP{
+    width: 100%;
+    text-align: center;
+}
+
+.import-input-MCSP{
+    width: 30%
+}
+
+.import-input{
+    margin: 10px;
+}
+
+.import-file-input-container{
+    display: flex;
+    justify-content: center;
+}
+
+.submit-button{
+    margin: 5px;
 }
 
 @keyframes fadeDownIn {
