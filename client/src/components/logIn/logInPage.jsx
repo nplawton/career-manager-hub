@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import './loginPage.css'
+import galvanizeLogo from './galvanizeLogo.webp'
 
-const LogInPage = ( ) => {
+const LogInPage = ({ handleLogin }) => {
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -24,11 +26,12 @@ const LogInPage = ( ) => {
 
       if (responseData.success) {
         console.log("Login successful:", responseData);
-        // Todo, swap page on success
+        handleLogin(responseData); // Call the handleLogin function passed as a prop
       } else {
         setErrorRelay(responseData.message);
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error)
       setErrorRelay("get out of here imposter 😠");
     }
@@ -40,9 +43,11 @@ const LogInPage = ( ) => {
   };
 
   return (
-    <div>
+    <div className="login-background">
       <form className="login-Container" onSubmit={handleUserLogin}>
+      <img src={galvanizeLogo} ></img>
         <input
+          className="login-value"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
@@ -50,15 +55,16 @@ const LogInPage = ( ) => {
           id="email">
         </input>
         <input
+          className="login-value"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           type="password"
           placeholder="*******"
           id="password"
         ></input>
-        <button className="login-button">Log In</button>
+        <button className="login-button">log in</button>
+        {errorRelay && <p className="error-message">{errorRelay}</p>}
       </form>
-      {errorRelay && <p className="error-message">{errorRelay}</p>}
     </div>
   );
 }

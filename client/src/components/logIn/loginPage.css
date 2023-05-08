@@ -1,0 +1,28 @@
+.login-Container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-value {
+    border-radius: 5em;
+    height: 40px;
+    width: 250px;
+    margin-top: 40px;
+}
+.login-button {
+    border-radius: 5em;
+    height: 40px;
+    width: 80px;
+    background-color: rgb(228, 118, 75);
+    color: white;
+    margin-top: 40px;
+}
+
+.error-message {
+    color: white;
+}
