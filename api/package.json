@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "test": "echo 'add tests'"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15",
-    "supertest": "^6.3.3",
-    "vitest": "^0.29.2"
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "test": "echo 'add tests'",
+    "seed": "node faker.js",
+    "migrate": "node migration.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
