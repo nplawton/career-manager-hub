@@ -6,7 +6,7 @@
     "dev": "node src/server.cjs",
     "start": "node src/server.cjs",
     "test": "echo 'add tests'",
-    "seed": "node srfaker.js",
+    "seed": "node faker.js",
     "migrate": "node src/db/migration.js"
   },
   "dependencies": {
