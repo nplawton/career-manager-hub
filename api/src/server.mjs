@@ -1,6 +1,7 @@
-const express = require('express');
-const { Pool } = require('pg');
-const cors = require('cors');
+import express from 'express';
+import { Pool } from 'pg';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -11,7 +12,6 @@ const PORT = process.env.PORT
 
 const app = express();
 
-const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 app.use(express.json());

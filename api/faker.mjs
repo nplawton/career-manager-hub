@@ -1,5 +1,5 @@
-const faker = require('faker');
-const { Pool } = require('pg');
+import faker from 'faker';
+import { Pool } from 'pg';
 
 const db = new Pool({  
     user: 'postgres',

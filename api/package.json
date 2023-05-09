@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node src/server.cjs",
-    "start": "node src/server.cjs",
+    "dev": "node src/server.mjs",
+    "start": "node src/server.mjs",
     "test": "echo 'add tests'",
-    "seed": "node faker.js",
+    "seed": "node faker.mjs",
     "migrate": "node src/db/migration.js"
   },
   "dependencies": {
