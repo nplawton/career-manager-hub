@@ -2,7 +2,12 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 
-const db = new Pool({ connectionString: process.env.DATABASE_URL });
+const db = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  }
+});
 
 const PORT = process.env.PORT
 
