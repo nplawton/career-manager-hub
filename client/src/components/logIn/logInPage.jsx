@@ -10,7 +10,7 @@ const LogInPage = ({ handleLogin }) => {
 
   async function loginUser(email, password) {
     try {
-      const response = await fetch("http://localhost:8000/managers/login", {
+      const response = await fetch("https://career-services-server.onrender.com/managers/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
