@@ -2,13 +2,7 @@ import faker from 'faker';
 import pg from 'pg';
 const { Pool } = pg;
 
-const db = new Pool({  
-    user: 'postgres',
-    host: '127.0.0.1',
-    database: 'blueocean',
-    password: 'docker',
-    port: 5432 
-});
+const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
 const cohorts = ['MCSP-16', 'MCSP-17', 'MCSP-18', 'MCSP-19', 'MCSP-20', 'MCSP-21', 'MCSP-22'];
 const careerStatus = ['Searching', 'Hired', 'Not Started'];
