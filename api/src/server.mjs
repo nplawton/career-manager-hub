@@ -27,7 +27,7 @@ app.use(
 // --------------------------------------------- STUDENT ROUTES ----------------------------------------------------------------------------
 app.get('/students', async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT * FROM student INNER JOIN service_manager ON student.student_id = service_manager.tscm_id');
+    const { rows } = await db.query('SELECT * FROM student INNER JOIN service_manager ON student.student_id = service_manager.tscm_id');
     res.json(rows);
   } catch (error) {
     console.error('Error fetching students:', error);
