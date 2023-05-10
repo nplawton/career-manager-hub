@@ -7,7 +7,7 @@ import { EventsContextProvider } from '../../context/eventsContext'
 import { StudentsContextProvider } from '../../context/studentsContext'
 import { ManagersContextProvider } from '../../context/managersContext'
 import CareerServicesHub from '../CareerServicesHub/CareerServicesHub'
-import LogInPage from "../logIn/loginPage.jsx";
+import LogInPage from '../logIn/logInPage'
 
 const App = () => {
   const [loggedInfo, setLoggedInfo] = useState("");
