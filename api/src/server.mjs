@@ -1,17 +1,16 @@
 import express from 'express';
-import { Pool } from 'pg';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import pg from 'pg';
-const { Pool } = pg;
 
+const { Pool } = pg;
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 
 const app = express();
 
@@ -21,7 +20,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin:"*"
+    origin: "*",
   })
 );
 
