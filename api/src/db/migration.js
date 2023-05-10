@@ -8,17 +8,6 @@ function delay(ms) {
 }
 
 async function migration() {
-    // Milestone table
-    await db.query(`DROP TABLE IF EXISTS milestone CASCADE`);
-    await db.query(`CREATE TABLE milestone (
-            event_id SERIAL PRIMARY KEY NOT NULL,
-            mile_name TEXT NOT NULL,
-            progress_stat TEXT NOT NULL,
-            student_id INTEGER REFERENCES student (student_id)
-        )`);
-    console.log('Milestone table created');
-    await delay(2000); // 2-second delay
-
     // Service_manager table
     await db.query(`DROP TABLE IF EXISTS service_manager CASCADE`);
     await db.query(`CREATE TABLE service_manager (
@@ -60,6 +49,18 @@ async function migration() {
             event_descrip text NOT NULL
         )`);
     console.log('Calendar table created');
+    await delay(2000); // 2-second delay
+
+    // Milestone table
+    await db.query(`DROP TABLE IF EXISTS milestone CASCADE`);
+    await db.query(`CREATE TABLE milestone (
+            event_id SERIAL PRIMARY KEY NOT NULL,
+            mile_name TEXT NOT NULL,
+            progress_stat TEXT NOT NULL,
+            student_id INTEGER REFERENCES student (student_id)
+        )`);
+    console.log('Milestone table created');
+    
 }
 
 migration();
