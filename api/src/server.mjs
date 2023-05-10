@@ -2,6 +2,9 @@ import express from 'express';
 import { Pool } from 'pg';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import pg from 'pg';
+const { Pool } = pg;
+
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
