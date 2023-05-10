@@ -1,5 +1,6 @@
 import faker from 'faker';
-import { Pool } from 'pg';
+import pg from 'pg';
+const { Pool } = pg;
 
 const db = new Pool({  
     user: 'postgres',
