@@ -27,7 +27,7 @@ const seedStudents = async () => {
             sec_clearance: secClearance[randomNumber3],
             career_status: careerStatus[randomNumber],
             course_status: courseStatus[randomNumber2],
-            tscm__id: faker.datatype.number({ min: 1, max: 7 }),
+            tscm_id: faker.datatype.number({ min: 1, max: 7 }),
         });
     }
 
@@ -37,8 +37,8 @@ const seedStudents = async () => {
 
         for (let i = 0; i < SEED_STUDENT_ROWS; i++){
             console.log(`seeded ${i} students!`);
-            const {student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm__id} = studentList[i];
-            await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm__id]);
+            const {student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm_id} = studentList[i];
+            await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm_id]);
         }
 
         console.log('Students seeded successfully');
@@ -93,9 +93,9 @@ const seedCalendar = async () => {
             event_name: faker.company.companyName(),
             tscm_id: faker.datatype.number({ min: 1, max: 7 }),
             event_date: faker.date.between(startDate, endDate),
-            event_time: faker.datatype.datetime(),
+            event_time: faker.date.between(startDate, endDate),
             speak_con: speakContactArray[randomNumber],
-            event_descrip: faker.lorem.paragraph(sentenceCount = 4),
+            event_descrip: faker.lorem.paragraph(4),
         });
     }
 
