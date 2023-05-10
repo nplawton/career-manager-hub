@@ -25,13 +25,15 @@ app.use(
 );
 
 // --------------------------------------------- STUDENT ROUTES ----------------------------------------------------------------------------
-app.get("/students", async (req, res, next) =>{
-  const results = await db.query(`SELECT student.*, service_manager.tscm_first, service_manager.tscm_last
-                                  FROM student 
-                                  JOIN service_manager ON service_manager.tscm_id = student.tscm_id`)
-                          .catch(next);
-  res.send(results.rows)
-})
+app.get('/students', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM student INNER JOIN service_manager ON student.student_id = service_manager.tscm_id');
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching students:', error);
+    res.status(500).json({ message: 'An error occurred while fetching students' });
+  }
+});
 
 app.get("/students/:id", async (req, res, next) =>{
   const id = req.params.id;

@@ -89,11 +89,14 @@ const seedCalendar = async () => {
     for (let i = 0; i < 15; i++){
         let randomNumber = Math.floor(Math.random() * 3);
 
+        const randomDate = faker.date.between(startDate, endDate);
+        const randomTime = randomDate.toLocaleTimeString('en-US', { hour12: false });
+
         calendarEvent.push({
             event_name: faker.company.companyName(),
             tscm_id: faker.datatype.number({ min: 1, max: 7 }),
-            event_date: faker.date.between(startDate, endDate),
-            event_time: faker.date.between(startDate, endDate),
+            event_date: randomDate,
+            event_time: randomTime,
             speak_con: speakContactArray[randomNumber],
             event_descrip: faker.lorem.paragraph(4),
         });
