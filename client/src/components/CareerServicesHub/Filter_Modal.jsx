@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import '../filter.css';
+import './filter.css';
 
 function Filter_Modal({ children, filterOpen, onClose }) {
   

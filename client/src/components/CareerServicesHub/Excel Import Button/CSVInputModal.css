@@ -8,18 +8,35 @@
     top: 0;
     left: 0;
 
-    background-color: rgb(5, 5, 230, .6);
+    background-color: rgba(61, 61, 63, 0.2);
+    backdrop-filter: blur(5px);
+    transition: ease .5s;
+}
+
+.modal-backdrop:hover{
+    cursor: pointer;
+    background-color: rgba(61, 61, 63, 0.5);
+    backdrop-filter: blur(0px);
+}
+
+.modal-backdrop:hover + .import-modal-container{
+    transform: scale(.95);
+    filter: blur(3px);
 }
 
 .import-modal-container{
+    transition: ease .5s;
     height: fit-content;
-    width: 55vw;
+    width: 50vw;
 
-    margin: auto;
+    font-family: 'KelsonSans-Light', sans-serif;
 
+    position: fixed;
+    z-index: 3;
+    
     background-color: rgb(255, 255, 255, 1);
     border-radius: 10px;
-    
+
     animation: fadeDownIn 1s;
 }
 
@@ -38,7 +55,7 @@
     justify-content: center;
     align-items: center;
 
-    border-top: solid rgb(5, 5, 230, 0.6) 10px;
+    border-top: solid rgb(61, 61, 63, 0.45) 5px;
 }
 
 .container-off{
@@ -47,7 +64,7 @@
 
 .container-on{
     width: 100%;
-    height: 45vh;
+    height: 30vh;
 
     overflow: auto;
 }
@@ -56,10 +73,15 @@
     display: flex;
     justify-content: end;
     margin: 15px;
+
+    font-size: 20px;
 }
 
 .exit-button:hover{
     cursor: pointer;
+    font-weight: 900;
+
+    transition: ease .5s;
 }
 
 .import-modal-description-container{
@@ -84,7 +106,7 @@
     width: 100%;
 
     margin-bottom: 10px;
-    border-bottom: solid rgb(5, 5, 230, 0.6) 10px;
+    border-bottom: solid rgb(61, 61, 63, 0.45) 5;
 }
 
 .import-button-container-inputs{ 
@@ -92,7 +114,7 @@
     flex-direction:column;
     justify-content: center;
 
-    width: 45%;
+    width: 35%;
     margin: 10px;
     padding: 10px;
 }
@@ -113,6 +135,8 @@
 .import-file-input-container{
     display: flex;
     justify-content: center;
+
+    font-family: 'KelsonSans-Light', sans-serif;
 }
 
 .submit-button{

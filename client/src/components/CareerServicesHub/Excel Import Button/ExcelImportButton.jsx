@@ -13,7 +13,7 @@ export default function ExcelImportButton() {
 
   return (
     <>
-        <button className = 'import-excel-button' onClick={handleButtonClick}> Import Excel .csv </button>
+        <button className = 'import-excel-button header-buttons' onClick={handleButtonClick}> Import Excel .csv </button>
         <div className={toggleImport ? 'modal-on' : 'modal-off'}>
                 <CSVInputModal handleButtonClick={handleButtonClick}/>
         </div>

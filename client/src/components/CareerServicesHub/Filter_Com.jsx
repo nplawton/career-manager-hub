@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import './filter.css';
 
 function Filter({ currentCohort, setCurrentCohort, currentClearance, setCurrentClearance, currentStatus, setCurrentStatus,
-            currentMilestonStatus, setCurrentMilestonStatus, milestoneDocument, setMilestoneDocument }) {
+            currentMilestonStatus, setCurrentMilestonStatus, milestoneDocument, setMilestoneDocument, educationStatus, setEducationStatus }) {
   
   const cohorts = ['MCSP-16', 'MCSP-17', 'MCSP-18', 'MCSP-19', 'MCSP-20', 'MCSP-21', 'MCSP-22'];
   const secClearance = ['None', 'SECRET', 'TOP SECRET', 'TOP SECRET//SCI'];
   const courseStatus = ['Student', 'Graduate'];
   const studentMilestone = ['Cover Letter', 'Resume', 'LinkedIn', 'Personal Narrative', 'Hunter Access'];
   const progress_stat = ['In-Progress', 'Completed', 'Un-Satisfactory'];
-  
+  const ed_status = ['None', 'Associate\'s in CS/STEM', 'Associate\'s Not in CS/STEM', 'Bachelor\'s in CS/STEM', 'Bachelor\'s Not in CS/STEM', 'Masters in CS/STEM', 'Masters Not in CS/STEM']
+
+
   return (
     <div id='filt_container' >
       <div id='filt_subcontainer' >
@@ -110,6 +114,27 @@ function Filter({ currentCohort, setCurrentCohort, currentClearance, setCurrentC
                   value={docStatus}
                 >
                   {docStatus}
+                </option>
+              )
+            })
+          }
+        </select>
+      </div>
+      <div id='filt_subcontainer' >
+        <h1 id='filt_title' >Education Background</h1>
+        <select
+          value={educationStatus}
+          onChange={(e) => setEducationStatus(e.target.value)}
+        >
+          <option value=''>Level of Education</option>
+          {
+            ed_status.map((education, index) => {
+              return (
+                <option
+                  key={index}
+                  value={education}
+                >
+                  {education}
                 </option>
               )
             })

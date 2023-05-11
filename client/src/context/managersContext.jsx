@@ -6,7 +6,7 @@ export function ManagersContextProvider ({children}) {
     const [managersData, setManagersData] = useState(['null']);
 
     useEffect(() =>{
-        fetch('http://localhost:8000/managers')
+        fetch('https://career-services-server.onrender.com/managers')
             .then(response => response.json())
             .then(data => setManagersData(data))
             .catch(error => console.log(error))

@@ -1,0 +1,59 @@
+#add-card {
+    background-color:rgba(235, 235, 235, 0.3);
+    height: 110px;
+    width: 150px;
+    border: none;
+    padding: 5%;
+    text-align: center;
+    border-radius: 10px;
+    margin: 2%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-content: center;
+}
+
+#add-card:hover > #add-card-name{
+    color: white;
+}
+
+#add-card:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color:rgb(68, 66, 66);
+    color: white;
+
+    transition: ease 0.4s;
+}
+
+#add-card-name {
+    color: black;
+    display:block;
+    font-size: 70px;;
+    margin:5%;
+    border:none;
+    border-radius:10px;
+    white-space: nowrap;
+    padding-left: 26%;
+    background: none;   
+}
+
+.add-container {
+    display: grid;
+}
+
+#add-text {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.add_modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 70%;
+    width: 70%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    padding: 2%;
+    z-index: 1000;
+}

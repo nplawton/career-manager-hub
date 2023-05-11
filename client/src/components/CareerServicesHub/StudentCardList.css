@@ -2,12 +2,15 @@
   display: grid;
   width: 90vw;
   height: 50vh;
-
+  background: rgba(126, 125, 125, 0.247);
   overflow: auto;
 
   padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
 
-  border:solid red 2px;
+  border:solid white 2px;
+  border-radius: 10px;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   grid-gap: 5px;
   align-items: stretch;

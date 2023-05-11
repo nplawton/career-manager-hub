@@ -6,7 +6,7 @@ export function EventsContextProvider ({children}) {
     const [eventsData, setEventsData] = useState(['null']);
 
     useEffect(() =>{
-        fetch('http://localhost:8000/events')
+        fetch('https://career-services-server.onrender.com/events')
             .then(response => response.json())
             .then(data => setEventsData(data))
             .catch(error => console.log(error))

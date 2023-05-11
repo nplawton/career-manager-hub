@@ -32,6 +32,7 @@ async function migration() {
             sec_clearance VARCHAR(50) NOT NULL,
             career_status VARCHAR(50) NOT NULL,
             course_status VARCHAR(50) NOT NULL,
+            college_degree VARCHAR(50) NOT NULL,
             tscm_id INTEGER NOT NULL REFERENCES service_manager (tscm_id)
         )`);
     console.log('Student table created');

@@ -4,8 +4,6 @@ import { StudentsContext } from '../../../context/studentsContext';
 import { ManagersContext } from '../../../context/managersContext';
 
 export default function ImportResults({handleButtonClick, newStudents, importManager, importMCSP}) {
-
-    console.log("New Students", newStudents);
     
     const studentContext = useContext(StudentsContext);
     const students = studentContext.studentsData;
@@ -30,16 +28,8 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
             student.course_status = 'Student'         // Adding Course Status to Student
             student.tscm_id = importManager;          // Adding MCSP/Cohort to Student
             student.cohort = `MCSP-${importMCSP}`     // Adding Identified Career Manager to Student
-            //Adding Milestones to Student
-            milestoneArray.forEach((milestone_name) => {
-                student.milestone = [];
-                let newMilestone = {
-                    mile_name: milestone_name,
-                    progress_stat: 'In-Progress'
-                }
-                student.milestone.push(newMilestone) 
-            })
-            console.log(student);
+            student.college_degeree = `Unknown`       // Adding Identified Career Manager to Student
+
             fetch(`http://localhost:8000/students`, 
                 {
                     method:"POST", 
@@ -51,11 +41,35 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
                 )
                 .then(response => response.json())   
                 .then(data => {
-                    // Update Context with response
+                    //Adding Milestones to Student
+                    milestoneArray.forEach((milestone_name) => {
+
+                        let newMilestone = {
+                            mile_name: milestone_name,
+                            progress_stat: 'In-Progress'
+                        }
+
+                        fetch(`http://localhost:8000/students/${data.student_id}/milestones`, 
+                        {
+                            method:"POST", 
+                            body: JSON.stringify(newMilestone),
+                            headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            }
+                        }
+                        )
+                        .then(response => response.json())   
+                        .then(data => {
+                            // Update Context with response
+                        })
+                        .catch(function(error) {
+                        console.log(error);
+                        }); 
+                    })
                 })
                 .catch(function(error) {
                 console.log(error);
-                }); 
+                });
         })
 
     }
@@ -73,6 +87,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
                     <span className='results-student-cell header'>Course Status</span>
                     <span className='results-student-cell header'>MCSP</span>
                     <span className='results-student-cell header'>Career Manager </span>
+                    <span className='results-student-cell header'> College Degree </span>
                 </div>
             {newStudents.map((student) => {
                 return(
@@ -84,6 +99,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
                         <span className='results-student-cell'> Student </span>
                         <span className='results-student-cell'> MCSP-{importMCSP} </span>
                         <span className='results-student-cell'> { managers ? `${managers[importManager-1].tscm_first}, ${managers[importManager-1].tscm_last}` : ""} </span>
+                        <span className='results-student-cell'> Unknown </span>
                     </div>
                 )    
             })}
