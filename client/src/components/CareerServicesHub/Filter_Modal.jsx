@@ -9,19 +9,21 @@ function Filter_Modal({ children, filterOpen, onClose }) {
   
     return ReactDOM.createPortal (
         <>
-            <div 
-                className='filt_overlay' 
-                onClick={onClose}
-            />
-            <div className='filt_modal'>
-                <button
-                    id='closeBtn'
+            <div className='filter-modal-overlay-container'>
+                <div 
+                    className='filt_overlay' 
                     onClick={onClose}
-                >
-                    X
-                </button>
-                {children}
-            </div>
+                />
+                <div className='filt_modal'>
+                    <button
+                        id='closeBtn'
+                        onClick={onClose}
+                    >
+                        X
+                    </button>
+                    {children}
+                </div>
+            </div>            
         </>,
         document.getElementById('portal')
     )

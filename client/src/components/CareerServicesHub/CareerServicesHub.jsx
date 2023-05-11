@@ -105,25 +105,25 @@ export default function CareerServicesHub() {
           Filter
         </button>
         <Filter_Modal
-          filterOpen={filterOpen}
-          onClose={() => setFilterOpen(false)}
-          filterStudents={filterStudents}
-        >
-          <Filter 
-            currentCohort={currentCohort}
-            setCurrentCohort={setCurrentCohort}
-            currentClearance={currentClearance}
-            setCurrentClearance={setCurrentClearance}
-            currentStatus={currentStatus}
-            setCurrentStatus={setCurrentStatus}
-            currentMilestonStatus={currentMilestonStatus}
-            setCurrentMilestonStatus={setCurrentMilestonStatus}
-            milestoneDocument={milestoneDocument}
-            setMilestoneDocument={setMilestoneDocument}
-            educationStatus={educationStatus}
-            setEducationStatus={setEducationStatus}
-          />
-        </Filter_Modal>
+            filterOpen={filterOpen}
+            onClose={() => setFilterOpen(false)}
+            filterStudents={filterStudents}
+          >
+            <Filter 
+              currentCohort={currentCohort}
+              setCurrentCohort={setCurrentCohort}
+              currentClearance={currentClearance}
+              setCurrentClearance={setCurrentClearance}
+              currentStatus={currentStatus}
+              setCurrentStatus={setCurrentStatus}
+              currentMilestonStatus={currentMilestonStatus}
+              setCurrentMilestonStatus={setCurrentMilestonStatus}
+              milestoneDocument={milestoneDocument}
+              setMilestoneDocument={setMilestoneDocument}
+              educationStatus={educationStatus}
+              setEducationStatus={setEducationStatus}
+            />
+          </Filter_Modal>
         <SearchBar onSearch={handleSearch} />
       </div>
       <StudentCardsList

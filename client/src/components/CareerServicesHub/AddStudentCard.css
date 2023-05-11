@@ -37,6 +37,21 @@
     background: none;   
 }
 
+.add-modal-overlay-container{
+    display: flex;
+
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+}
+
 .add-container {
     display: grid;
 }
@@ -47,13 +62,18 @@
 }
 
 .add_modal{
+    transition: ease .5s;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    height: 70%;
-    width: 70%;
-    transform: translate(-50%, -50%);
-    background-color: #FFF;
-    padding: 2%;
     z-index: 1000;
+
+    height: fit-content;
+    width: 50vh;
+    
+    background-color: #FFF;
 }
+
+.filt_overlay:hover + .add_modal{
+    transform: scale(.8);
+    filter: blur(3px);
+}
+
