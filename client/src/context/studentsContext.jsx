@@ -8,12 +8,12 @@ export function StudentsContextProvider ({children}) {
     useEffect(() =>{
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/students');
+                const response = await fetch('https://career-services-server.onrender.com/students');
                 const students = await response.json();
                 const fullStudents = [];
 
                 for (const student of students) {
-                    const milestonesResponse = await fetch(`http://localhost:8000/students/${student.student_id}/milestones`);
+                    const milestonesResponse = await fetch(`https://career-services-server.onrender.com/students/${student.student_id}/milestones`);
                     const milestones = await milestonesResponse.json();
                     student.milestones = milestones;
                     fullStudents.push(student);
