@@ -41,7 +41,8 @@ const seedStudents = async () => {
         for (let i = 0; i < SEED_STUDENT_ROWS; i++){
             console.log(`seeded ${i} students!`);
             const {student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id} = studentList[i];
-            await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id]);
+            const result = await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id]);
+            console.lo0g(result.rows[0])
         }
 
         console.log('Students seeded successfully');
@@ -73,6 +74,7 @@ const seedServiceManager = async () => {
             console.log(`seeded ${i} TSCM!`);
             const {tscm_first, tscm_last, login_id, tscm_password, tscm_email, tscm_avatar} = careerManager[i];
             await db.query(queryString, [tscm_first, tscm_last, login_id, tscm_password, tscm_email, tscm_avatar]);
+
         }
 
         console.log('TSCM seeded successfully');
