@@ -42,7 +42,7 @@ const seedStudents = async () => {
             console.log(`seeded ${i} students!`);
             const {student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id} = studentList[i];
             const result = await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id]);
-            console.lo0g(result.rows[0])
+            console.log(result.rows[0])
         }
 
         console.log('Students seeded successfully');
