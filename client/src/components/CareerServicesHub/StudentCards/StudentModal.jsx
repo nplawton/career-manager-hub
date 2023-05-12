@@ -53,7 +53,7 @@ function handleUpdateStudent(e) {
     console.log(milestones);
     console.log(newUpdatedStudent);
 
-    fetch(`http://localhost:8000/students/${student.student_id}`,
+    fetch(`https://career-services-server.onrender.com/${student.student_id}`,
                 {
                     method:"PATCH", 
                     body: JSON.stringify(newUpdatedStudent),
@@ -68,7 +68,7 @@ function handleUpdateStudent(e) {
                     milestones.forEach((milestone) => {
 
 
-                        fetch(`http://localhost:8000/students/${data.student_id}/milestones/${milestone.mile_id}`, 
+                        fetch(`https://career-services-server.onrender.com/${data.student_id}/milestones/${milestone.mile_id}`, 
                         {
                             method:"PATCH", 
                             body: JSON.stringify(milestone),

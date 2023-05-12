@@ -30,7 +30,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
             student.cohort = `MCSP-${importMCSP}`     // Adding Identified Career Manager to Student
             student.college_degeree = `Unknown`       // Adding Identified Career Manager to Student
 
-            fetch(`http://localhost:8000/students`, 
+            fetch(`https://career-services-server.onrender.com/students`, 
                 {
                     method:"POST", 
                     body: JSON.stringify(student),
@@ -49,7 +49,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
                             progress_stat: 'In-Progress'
                         }
 
-                        fetch(`http://localhost:8000/students/${data.student_id}/milestones`, 
+                        fetch(`https://career-services-server.onrender.com/students/${data.student_id}/milestones`, 
                         {
                             method:"POST", 
                             body: JSON.stringify(newMilestone),

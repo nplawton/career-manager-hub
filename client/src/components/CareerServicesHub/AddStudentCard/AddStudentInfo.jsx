@@ -74,7 +74,7 @@ function AddStudentInfo({ setAddStudent }) {
       sec_clearance: newStudent.sec_clearance,
     };
     try {
-      const response = fetch("http://localhost:8000/students", {
+      const response = fetch("https://career-services-server.onrender.com/students", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
