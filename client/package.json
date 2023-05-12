@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite serve --host",
     "build": "vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
