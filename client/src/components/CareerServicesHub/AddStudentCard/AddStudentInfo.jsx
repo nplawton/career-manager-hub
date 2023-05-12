@@ -1,15 +1,17 @@
 import React, { useContext, useState, useRef } from "react";
 import "./AddStudentCard.css";
-import { ManagersContext } from "../../context/managersContext";
-import { StudentsContext } from "../../context/studentsContext";
+import { ManagersContext } from "../../../context/managersContext";
+import { StudentsContext } from "../../../context/studentsContext";
 
 function AddStudentInfo({ setAddStudent }) {
   const [currentClearance, setCurrentClearance] = useState("");
+  const [currentEducation, setCurrentEducation] = useState("");
   const [newStudent, setNewStudent] = useState({
     cohort: "",
     tscm_id: 0,
     student_first: "",
     student_last: "",
+    college_degree: "",
     sec_clearance: "",
   });
   const managersContext = useContext(ManagersContext);
@@ -20,6 +22,15 @@ function AddStudentInfo({ setAddStudent }) {
 
   const managers = managersContext.managersData;
   const secClearance = ["None", "SECRET", "TOP SECRET", "TOP SECRET//SCI"];
+  const addEducation = [
+    "None",
+    "Associate's in CS/STEM",
+    "Associate's Not in CS/STEM",
+    "Bachelor's in CS/STEM",
+    "Bachelor's Not in CS/STEM",
+    "Masters in CS/STEM",
+    "Masters Not in CS/STEM",
+  ];
 
   const handleFirstNameChange = (event) => {
     setNewStudent({ ...newStudent, student_first: event.target.value });
@@ -38,6 +49,11 @@ function AddStudentInfo({ setAddStudent }) {
     console.log(selectedManager);
   };
 
+  const handleEducationChange = (event) => {
+    setNewStudent({ ...newStudent, college_degree: currentEducation });
+    console.log("log education", currentEducation);
+  };
+
   const handleClearanceChange = (event) => {
     setNewStudent({ ...newStudent, clearance: currentClearance });
     console.log(currentClearance);
@@ -54,6 +70,7 @@ function AddStudentInfo({ setAddStudent }) {
       tscm_id: managerInputRef.current.value,
       student_first: newStudent.student_first,
       student_last: newStudent.student_last,
+      college_degree: newStudent.college_degree,
       sec_clearance: newStudent.sec_clearance,
     };
     try {
@@ -64,11 +81,13 @@ function AddStudentInfo({ setAddStudent }) {
         },
         body: JSON.stringify(newStudentObj),
       });
-      const addedStudent = (response) => response.json();
-      return addedStudent;
+    const addedStudent = (response) => response.json();
+    return addedStudent;
     } catch (error) {
-      console.log(error);
-    } finally {setAddStudent(false);}
+    console.log(error);
+    } finally {
+    setAddStudent(false);
+    }
   };
 
   return (
@@ -85,7 +104,6 @@ function AddStudentInfo({ setAddStudent }) {
             onChange={handleMCSPChange}
           />{" "}
         </span>
-        ;
       </div>
       <div className="add-subcontainer">
         <h1 id="add-text">Managers</h1>
@@ -123,9 +141,25 @@ function AddStudentInfo({ setAddStudent }) {
         />
       </div>
       <div className="add-subcontainer">
+        <h1 id="add-text">Education:</h1>
+        <select
+          value={newStudent.addEducation}
+          onChange={handleEducationChange}
+        >
+          <option>Select Education</option>
+          {addEducation.map((education, index) => {
+            return (
+              <option key={index} value={education}>
+                {education}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div className="add-subcontainer">
         <h1 id="add-text">Security Clearance:</h1>
         <select
-          value={newStudent.sec_clearance}
+          value={newStudent.secClearance}
           onChange={handleClearanceChange}
         >
           <option value="">Select a Security Clearance</option>

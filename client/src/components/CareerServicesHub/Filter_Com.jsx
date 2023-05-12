@@ -1,17 +1,56 @@
-import React, { useState } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import './filter.css';
+import { StudentsContext } from '../../context/studentsContext';
+import { ManagersContext } from '../../context/managersContext';
 
-function Filter({ currentCohort, setCurrentCohort, currentClearance, setCurrentClearance, currentStatus, setCurrentStatus,
-            currentMilestonStatus, setCurrentMilestonStatus, milestoneDocument, setMilestoneDocument, educationStatus, setEducationStatus }) {
+
+function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCoverStatus, currentCoverStatus, setStudentResume, currentResumeStatus, setCurrentResumeStatus,setLinkedAccount, linkedAccountStatus, setLinkedAccountStatus, setPersonalNarrative, narrativeStatus, setNarrativeStatus, setHunterAccess, currentAccess, setCurrentAccess, currentStatus, setCurrentStatus, currentClearance, setCurrentClearance, educationStatus, setEducationStatus, currentFirstManager, setCurrentFirstManager, currentLastManager, setCurrentLastManager }) {
+  
+  const studentContext = useContext(StudentsContext);
+  const students = studentContext.studentsData;
+
+  const managersContext = useContext(ManagersContext);
+  const managers = managersContext.managersData;
+  const managerInputRef = useRef();
   
   const cohorts = ['MCSP-16', 'MCSP-17', 'MCSP-18', 'MCSP-19', 'MCSP-20', 'MCSP-21', 'MCSP-22'];
   const secClearance = ['None', 'SECRET', 'TOP SECRET', 'TOP SECRET//SCI'];
   const courseStatus = ['Student', 'Graduate'];
-  const studentMilestone = ['Cover Letter', 'Resume', 'LinkedIn', 'Personal Narrative', 'Hunter Access'];
   const progress_stat = ['In-Progress', 'Completed', 'Un-Satisfactory'];
-  const ed_status = ['None', 'Associate\'s in CS/STEM', 'Associate\'s Not in CS/STEM', 'Bachelor\'s in CS/STEM', 'Bachelor\'s Not in CS/STEM', 'Masters in CS/STEM', 'Masters Not in CS/STEM']
+  const ed_status = ['Undetermined', 'None', 'Associate in CS/STEM', 'Associate Not in CS/STEM', 'Bachelor in CS/STEM', 'Bachelor Not in CS/STEM', 'Masters in CS/STEM', 'Masters Not in CS/STEM'];
 
+  const handleCheckedCover = (e) => {
+    setCurrentCoverStatus(e.target.value);
+    setCoverLetter('Cover Letter');
+  }
+
+  const handleCheckedResume = (e) => {
+    setCurrentResumeStatus(e.target.value);
+    setStudentResume ('Resume');
+  }
+
+  const handleLinkedAccount = (e) => {
+    setLinkedAccountStatus(e.target.value);
+    setLinkedAccount('LinkedIn');
+  }
+
+  const handleNarrativeStatus = (e) => {
+    setNarrativeStatus(e.target.value);
+    setPersonalNarrative('Personal Narrative');
+  }
+
+  const handleHunterAccess = (e) => {
+    setCurrentAccess(e.target.value);
+    setHunterAccess('Hunter Access');
+  }
+
+  const handleManagerChange = (e) => {
+    const selectedManager = e.target.value;
+    setCurrentFirstManager(managers[selectedManager - 1].tscm_first);
+    setCurrentLastManager(managers[selectedManager - 1].tscm_last);
+    console.log(careerManager);
+  }
 
   return (
     <div id='filt_container' >
@@ -37,20 +76,104 @@ function Filter({ currentCohort, setCurrentCohort, currentClearance, setCurrentC
           </select>
       </div>
       <div id='filt_subcontainer' >
-        <h1 id='filt_title' >Security Clearance</h1>
+        <h1 id='filt_title' >Cover Letter</h1>
         <select
-          value={currentClearance}
-          onChange={(e) => setCurrentClearance(e.target.value)}
+          value={currentCoverStatus}
+          onChange={handleCheckedCover}
         >
-          <option value=''>Select a Security Clearance</option>
+          <option value=''>Document Status</option>
           {
-            secClearance.map((security, index) => {
+            progress_stat.map((docStatus, index) => {
               return (
                 <option
                   key={index}
-                  value={security}
+                  value={docStatus}
                 >
-                  {security}
+                  {docStatus}
+                </option>
+              )
+            })
+          }
+        </select>
+      </div>
+      <div id='filt_subcontainer' >
+        <h1 id='filt_title' >Resume</h1>
+        <select
+          value={currentResumeStatus}
+          onChange={handleCheckedResume}
+        >
+          <option value=''>Document Status</option>
+          {
+            progress_stat.map((docStatus, index) => {
+              return (
+                <option
+                  key={index}
+                  value={docStatus}
+                >
+                  {docStatus}
+                </option>
+              )
+            })
+          }
+        </select>
+      </div>
+      <div id='filt_subcontainer' >
+        <h1 id='filt_title' >LinkedIn Account</h1>
+        <select
+          value={linkedAccountStatus}
+          onChange={handleLinkedAccount}
+        >
+          <option value=''>Document Status</option>
+          {
+            progress_stat.map((docStatus, index) => {
+              return (
+                <option
+                  key={index}
+                  value={docStatus}
+                >
+                  {docStatus}
+                </option>
+              )
+            })
+          }
+        </select>
+      </div>
+      <div id='filt_subcontainer' >
+        <h1 id='filt_title' >Personal Narrative</h1>
+        <select
+          value={narrativeStatus}
+          onChange={handleNarrativeStatus}
+        >
+          <option value=''>Document Status</option>
+          {
+            progress_stat.map((docStatus, index) => {
+              return (
+                <option
+                  key={index}
+                  value={docStatus}
+                >
+                  {docStatus}
+                </option>
+              )
+            })
+          }
+        </select>
+      </div>
+      <div id='filt_subcontainer' >
+        <h1 id='filt_title' >Hunter Account</h1>
+        <select
+          value={currentAccess}
+          onChange={handleHunterAccess}
+        >
+          <option value=''>Document Status</option>
+          {
+            progress_stat.map((docStatus, index) => {
+              return (
+                <option
+                  key={index}
+                  value={docStatus}
+                >
+                  {docStatus}
                 </option>
               )
             })
@@ -79,41 +202,20 @@ function Filter({ currentCohort, setCurrentCohort, currentClearance, setCurrentC
         </select>
       </div>
       <div id='filt_subcontainer' >
-        <h1 id='filt_title' >Milestone Document</h1>
+        <h1 id='filt_title' >Security Clearance</h1>
         <select
-          value={milestoneDocument}
-          onChange={(e) => setMilestoneDocument(e.target.value)}
+          value={currentClearance}
+          onChange={(e) => setCurrentClearance(e.target.value)}
         >
-          <option value=''>Milestone Document</option>
+          <option value=''>Select a Security Clearance</option>
           {
-            studentMilestone.map((mileDoc, index) => {
+            secClearance.map((security, index) => {
               return (
                 <option
                   key={index}
-                  value={mileDoc}
+                  value={security}
                 >
-                  {mileDoc}
-                </option>
-              )
-            })
-          }
-        </select>
-      </div>
-      <div id='filt_subcontainer' >
-        <h1 id='filt_title' >Milestone Status</h1>
-        <select
-          value={currentMilestonStatus}
-          onChange={(e) => setCurrentMilestonStatus(e.target.value)}
-        >
-          <option value=''>Document Status</option>
-          {
-            progress_stat.map((docStatus, index) => {
-              return (
-                <option
-                  key={index}
-                  value={docStatus}
-                >
-                  {docStatus}
+                  {security}
                 </option>
               )
             })
@@ -139,6 +241,22 @@ function Filter({ currentCohort, setCurrentCohort, currentClearance, setCurrentC
               )
             })
           }
+        </select>
+      </div>
+      <div id='filt_subcontainer' >
+        <h1 id='filt_title' >Service Career Manager</h1>
+        <select
+          ref={managerInputRef}
+          onChange={(e) => handleManagerChange(e)}
+        >
+          <option>Select a Career Service Manager</option>
+          {managers.map((manager) => {
+            return (
+              <option value={manager.tscm_id}>
+                {manager.tscm_first}, {manager.tscm_last}{" "}
+              </option>
+            );
+          })}
         </select>
       </div>
     </div>

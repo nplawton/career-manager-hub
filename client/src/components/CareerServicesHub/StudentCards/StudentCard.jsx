@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { StudentsContext } from '../../context/studentsContext';
+import { StudentsContext } from '../../../context/studentsContext';
 import './StudentCard.css'
 import StudentModal from './StudentModal';
 

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
-import { StudentsContext } from "../../context/studentsContext";
-import StudentCard from "./StudentCard";
+import { StudentsContext } from "../../../context/studentsContext";
 import "./AddStudentCard.css";
 import Add_Student_Modal from "./AddStudentModal";
 import AddStudentInfo from "./AddStudentInfo";
@@ -15,8 +14,22 @@ function AddStudent() {
       setAddStudent(newAddStudent);
     }
   
+      // return (
+      //   <div className="btnWrapper" id="add-card">
+      //     <button onClick={() => setAddStudent(true)} id="add-card-name">
+      //       &#x271A;
+      //     </button>
+      //     <Add_Student_Modal
+      //       addStudent={addStudent}
+      //       onClose={() => setAddStudent(false)}
+      //     >
+      //       <AddStudentInfo setAddStudent={setAddStudent} />
+      //     </Add_Student_Modal>
+      //   </div>
+      // );
+
     return (
-      <div onClick={handleAddStudentModalToggle} className="btnWrapper" id="add-card">
+      <div className="btnWrapper" id="add-card">
         <button onClick={handleAddStudentModalToggle} id="add-card-name">
           &#x271A;
         </button>

@@ -64,7 +64,7 @@
 .add_modal{
     transition: ease .5s;
     position: fixed;
-    z-index: 1000;
+    z-index: 1001;
 
     height: fit-content;
     width: 50vh;
