@@ -6,7 +6,7 @@ import { EventsContextProvider } from '../../context/eventsContext'
 import { StudentsContextProvider } from '../../context/studentsContext'
 import { ManagersContextProvider } from '../../context/managersContext'
 import CareerServicesHub from '../CareerServicesHub/CareerServicesHub'
-import LogInPage from "../logIn/logInPage"
+import LogInPage from "../logIn/loginPage";
 
 const App = () => {
   const [loggedInfo, setLoggedInfo] = useState("");
@@ -41,7 +41,7 @@ const App = () => {
                   )
                 }
               />
-              <Route path="/mainpage" element={loggedInfo ? <CareerServicesHub /> : <LogInPage handleLogin={handleLogin} />} />
+              <Route path="/mainpage" element={<CareerServicesHub />} />
             </Routes>
           </ManagersContextProvider>
         </StudentsContextProvider>

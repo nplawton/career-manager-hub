@@ -1,3 +1,26 @@
+@font-face {
+  font-family: 'KelsonSans-Light';
+  src: url('./assets/fonts/KelsonSans-Light.otf') format('opentype');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KelsonSans';
+  src: url('./assets/fonts/KelsonSans-Normal.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KelsonSans-Bold';
+  src: url('./assets/fonts/KelsonSans-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+
 body {
   margin: 0;
   padding: 1rem;
