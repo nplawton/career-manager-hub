@@ -29,9 +29,9 @@ async function migration() {
             student_first VARCHAR(50) NOT NULL,
             student_last VARCHAR(50) NOT NULL,
             cohort VARCHAR(50) NOT NULL,
-            sec_clearance VARCHAR(50) NOT NULL,
+            sec_clearance VARCHAR(50),
             career_status VARCHAR(50),
-            course_status VARCHAR(50) NOT NULL,
+            course_status VARCHAR(50),
             college_degree VARCHAR(50),
             tscm_id INTEGER NOT NULL REFERENCES service_manager (tscm_id)
         )`);
