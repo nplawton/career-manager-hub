@@ -5,22 +5,17 @@ import { ManagersContext } from '../../context/managersContext';
 import StudentCardsList from './StudentCards/StudentCardsList';
 import './CareerServicesHub.css'
 
-import ExcelImportButton from './Excel Import Button/ExcelImportButton'
 import Export from './Export';
 import './filter.css';
-import Filter_Modal from './Filter_Modal';
 import Filter from './Filter_Com';
-import SearchBar from './SearchFunction/Search';
 import galvanizeLogo from '../logIn/galvanizeLogo.webp';
+import SearchBar from './SearchFunction/Search';
 
 export default function CareerServicesHub() {
 
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [currentCohort, setCurrentCohort] = useState('');
-  const [currentClearance, setCurrentClearance] = useState('');
-  const [currentStatus, setCurrentStatus] = useState('');
-  const [educationStatus, setEducationStatus] = useState('');
+  //const [filterOpen, setFilterOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentCohort, setCurrentCohort] = useState('');
   const [coverLetter, setCoverLetter] = useState('');
   const [currentCoverStatus, setCurrentCoverStatus] = useState('');
   const [studentResume, setStudentResume] = useState('');
@@ -31,8 +26,10 @@ export default function CareerServicesHub() {
   const [narrativeStatus, setNarrativeStatus] = useState('');
   const [hunterAccess, setHunterAccess] = useState('');
   const [currentAccess, setCurrentAccess] = useState('');
-  const [currentFirstManager, setCurrentFirstManager] = useState('');
-  const [currentLastManager, setCurrentLastManager] = useState('');
+  const [currentStatus, setCurrentStatus] = useState('');
+  const [currentClearance, setCurrentClearance] = useState('');
+  const [educationStatus, setEducationStatus] = useState('');
+  const [selectedManager, setSelectedManager] = useState('');
 
   const eventContext = useContext(EventsContext);
   const events = eventContext.eventsData;
@@ -46,12 +43,10 @@ export default function CareerServicesHub() {
   const managers = managersContext.managersData;
   console.log('managers', managers);
 
-  const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm);
-};
+  
 
   // Filter the list of students based on the current filter
-  const filterStudents = (students, currentCohort, coverLetter, currentCoverStatus, studentResume, currentResumeStatus, linkedAccount, linkedAccountStatus, personalNarrative, narrativeStatus, hunterAccess, currentAccess, currentStatus, currentClearance, educationStatus, currentManager) => {
+  const filterStudents = (students, currentCohort, coverLetter, currentCoverStatus, studentResume, currentResumeStatus, linkedAccount, linkedAccountStatus, personalNarrative, narrativeStatus, hunterAccess, currentAccess, currentStatus, currentClearance, educationStatus, selectedManager) => {
     if(!students){
         return [];
     }
@@ -75,9 +70,9 @@ export default function CareerServicesHub() {
       filteredStudent = filteredStudent.filter(student => student.college_degree === educationStatus);
     }
 
-    if(currentFirstManager && currentLastManager){
-      filteredStudent = filteredStudent.filter(student => student.tscm_first === currentFirstManager && student.tscm_last === currentLastManager);
-      console.log('Current Manager', currentFirstManager, currentLastManager);
+    if(selectedManager){
+      filteredStudent =filteredStudent.filter(student => student.tscm_first === selectedManager)
+      console.log('Current Manager', selectedManager);
     }
     
     if (coverLetter  && currentCoverStatus) {
@@ -157,11 +152,64 @@ export default function CareerServicesHub() {
 
   };
 
+  const handleClear = () => {
+    setSearchTerm('');
+    const searchBar = document.getElementsByClassName('student-search-bar')[0];
+    if (searchBar) {
+      searchBar.value = '';
+    }
+    setCurrentCohort('');
+    setCurrentCoverStatus('');
+    setCoverLetter('');
+    setCurrentResumeStatus('');
+    setStudentResume('');
+    setLinkedAccountStatus('');
+    setLinkedAccount('');
+    setNarrativeStatus('');
+    setPersonalNarrative('');
+    setCurrentAccess('');
+    setHunterAccess('');
+    setCurrentStatus('');
+    setCurrentClearance('');
+    setEducationStatus('');
+    setSelectedManager('');
+    const selectElement = document.getElementById('manager-select');
+    selectElement.value = 'Career Service Manager';
+  }
+
   return (
-    <div>      
-      <img src={galvanizeLogo} ></img>
-      <div className='filt-wrapper'>
-        < ExcelImportButton />
+    <div className='body_container'>      
+      <div className='left_container'>
+        <img src={galvanizeLogo} ></img>
+        <Filter 
+          setSearchTerm={setSearchTerm}
+          searchTerm={searchTerm}
+          currentCohort={currentCohort}
+          setCurrentCohort={setCurrentCohort}
+          setCoverLetter={setCoverLetter}
+          setCurrentCoverStatus={setCurrentCoverStatus}
+          currentCoverStatus={currentCoverStatus}
+          setStudentResume={setStudentResume}
+          setCurrentResumeStatus={setCurrentResumeStatus}
+          currentResumeStatus={currentResumeStatus}
+          setLinkedAccount={setLinkedAccount}
+          linkedAccountStatus={linkedAccountStatus}
+          setLinkedAccountStatus={setLinkedAccountStatus}
+          setPersonalNarrative={setPersonalNarrative}
+          setNarrativeStatus={setNarrativeStatus}
+          narrativeStatus={narrativeStatus}
+          setHunterAccess={setHunterAccess}
+          currentAccess={currentAccess}
+          setCurrentAccess={setCurrentAccess}
+          currentStatus={currentStatus}
+          setCurrentStatus={setCurrentStatus}
+          currentClearance={currentClearance}
+          setCurrentClearance={setCurrentClearance}          
+          educationStatus={educationStatus}
+          setEducationStatus={setEducationStatus}
+          selectedManager={selectedManager}
+          setSelectedManager={setSelectedManager}
+        />
         <Export 
           filterStudents={filterStudents}
           currentCohort={currentCohort}
@@ -178,72 +226,35 @@ export default function CareerServicesHub() {
           currentStatus={currentStatus}
           currentClearance={currentClearance}
           educationStatus={educationStatus}
-          currentFirstManager={currentFirstManager}
-          currentLastManager={currentLastManager}
+          selectedManager={selectedManager}
         />
-        <button 
-          id='filterBtn'
-          onClick={() => setFilterOpen(true)}
+        <button
+          onClick={handleClear}
           className='header-buttons'
         >
-          Filter
+          Clear Filter
         </button>
-        <Filter_Modal
-          filterOpen={filterOpen}
-          onClose={() => setFilterOpen(false)}
-          filterStudents={filterStudents}
-        >
-          <Filter 
-            currentCohort={currentCohort}
-            setCurrentCohort={setCurrentCohort}
-            currentClearance={currentClearance}
-            setCurrentClearance={setCurrentClearance}
-            currentStatus={currentStatus}
-            setCurrentStatus={setCurrentStatus}
-            educationStatus={educationStatus}
-            setEducationStatus={setEducationStatus}
-            setCoverLetter={setCoverLetter}
-            setCurrentCoverStatus={setCurrentCoverStatus}
-            currentCoverStatus={currentCoverStatus}
-            setStudentResume={setStudentResume}
-            setCurrentResumeStatus={setCurrentResumeStatus}
-            currentResumeStatus={currentResumeStatus}
-            setLinkedAccount={setLinkedAccount}
-            linkedAccountStatus={linkedAccountStatus}
-            setLinkedAccountStatus={setLinkedAccountStatus}
-            setPersonalNarrative={setPersonalNarrative}
-            setNarrativeStatus={setNarrativeStatus}
-            narrativeStatus={narrativeStatus}
-            setHunterAccess={setHunterAccess}
-            currentAccess={currentAccess}
-            setCurrentAccess={setCurrentAccess}
-            currentFirstManager={currentFirstManager}
-            setCurrentFirstManager={setCurrentFirstManager}
-            currentLastManager={currentLastManager}
-            setCurrentLastManager={setCurrentLastManager}
-          />
-        </Filter_Modal>
-        <SearchBar onSearch={handleSearch} />
       </div>
-      <StudentCardsList
-        filterStudents={filterStudents}
-        currentCohort={currentCohort}
-        coverLetter={coverLetter}
-        currentCoverStatus={currentCoverStatus}
-        studentResume={studentResume}
-        currentResumeStatus={currentResumeStatus}
-        linkedAccount={linkedAccount}
-        linkedAccountStatus={linkedAccountStatus}
-        personalNarrative={personalNarrative}
-        narrativeStatus={narrativeStatus}
-        hunterAccess={hunterAccess}
-        currentAccess={currentAccess}
-        currentStatus={currentStatus}
-        currentClearance={currentClearance}
-        educationStatus={educationStatus}
-        currentFirstManager={currentFirstManager}
-        currentLastManager={currentLastManager}
-      />
+      <div className='right_container'>
+        <StudentCardsList
+          filterStudents={filterStudents}
+          currentCohort={currentCohort}
+          coverLetter={coverLetter}
+          currentCoverStatus={currentCoverStatus}
+          studentResume={studentResume}
+          currentResumeStatus={currentResumeStatus}
+          linkedAccount={linkedAccount}
+          linkedAccountStatus={linkedAccountStatus}
+          personalNarrative={personalNarrative}
+          narrativeStatus={narrativeStatus}
+          hunterAccess={hunterAccess}
+          currentAccess={currentAccess}
+          currentStatus={currentStatus}
+          currentClearance={currentClearance}
+          educationStatus={educationStatus}
+          selectedManager={selectedManager}
+        />
+      </div>
     </div>
   )
 }

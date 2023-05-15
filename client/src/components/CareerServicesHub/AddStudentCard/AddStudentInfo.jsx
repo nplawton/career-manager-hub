@@ -2,8 +2,12 @@ import React, { useContext, useState, useRef } from "react";
 import "./AddStudentCard.css";
 import { ManagersContext } from "../../../context/managersContext";
 import { StudentsContext } from "../../../context/studentsContext";
+import ExcelImportButton from '../Excel Import Button/ExcelImportButton';
 
 function AddStudentInfo({ setAddStudent }) {
+
+  const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://career-services-server.onrender.com';
+
   const [currentClearance, setCurrentClearance] = useState("");
   const [currentEducation, setCurrentEducation] = useState("");
   const [newStudent, setNewStudent] = useState({
@@ -74,7 +78,7 @@ function AddStudentInfo({ setAddStudent }) {
       sec_clearance: newStudent.sec_clearance,
     };
     try {
-      const response = fetch("https://career-services-server.onrender.com/students", {
+      const response = fetch(`${url}/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,6 +96,7 @@ function AddStudentInfo({ setAddStudent }) {
 
   return (
     <div className="add-container">
+      < ExcelImportButton />
       <div className="add-subcontainer">
         <h1 id="add-text">Select MCSP</h1>
         <span>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './search.css'
 
-const SearchBar = ({ onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const SearchBar = ({ onSearch, searchTerm, setSearchTerm }) => {
 
     const handleChange = (event) => {
         setSearchTerm(event.target.value);

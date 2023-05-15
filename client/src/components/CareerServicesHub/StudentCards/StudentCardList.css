@@ -1,7 +1,7 @@
 .student-card-container {
   display: grid;
-  width: 90vw;
-  height: 50vh;
+  width: 70vw;
+  height: 90vh;
   background: rgba(126, 125, 125, 0.247);
   overflow: auto;
 

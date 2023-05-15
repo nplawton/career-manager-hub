@@ -4,9 +4,10 @@ export const EventsContext = createContext();
 
 export function EventsContextProvider ({children}) {
     const [eventsData, setEventsData] = useState(['null']);
+    const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://career-services-server.onrender.com';
 
     useEffect(() =>{
-        fetch('https://career-services-server.onrender.com/events')
+        fetch(`${url}/events`)
             .then(response => response.json())
             .then(data => setEventsData(data))
             .catch(error => console.log(error))

@@ -13,6 +13,20 @@
     margin: 20px;
 }
 
+.body_container{
+  display: flex;
+}
+
+.left_container{
+  width: 25Vw;
+  margin-right: 5%;
+  background: rgba(126, 125, 125, 0.247);
+}
+
+.left_container{
+  width: 75Vw;
+}
+
 .header-buttons{
     background: #FF4742;
   border: 1px solid #FF4742;

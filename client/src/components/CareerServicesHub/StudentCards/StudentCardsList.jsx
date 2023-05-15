@@ -4,13 +4,13 @@ import AddStudent from '../AddStudentCard/AddStudentCard';
 import StudentCard from './StudentCard';
 import './StudentCardList.css'
 
-export default function StudentCardslist ({ filterStudents, currentCohort, coverLetter, currentCoverStatus, studentResume, currentResumeStatus,  linkedAccount, linkedAccountStatus, personalNarrative, narrativeStatus, hunterAccess, currentAccess, currentStatus, currentClearance, educationStatus, currentFirstManager, currentLastManager }) {
+export default function StudentCardslist ({ filterStudents, currentCohort, coverLetter, currentCoverStatus, studentResume, currentResumeStatus,  linkedAccount, linkedAccountStatus, personalNarrative, narrativeStatus, hunterAccess, currentAccess, currentStatus, currentClearance, educationStatus, selectedManager }) {
 
   const studentContext = useContext(StudentsContext);
   const students = studentContext.studentsData;
   //console.log(students);
 
-  const filteredStudents = filterStudents(students, currentCohort, coverLetter, currentCoverStatus, studentResume, currentResumeStatus, linkedAccount, linkedAccountStatus, personalNarrative, narrativeStatus, hunterAccess, currentAccess, currentStatus, currentClearance,  educationStatus, currentFirstManager, currentLastManager);
+  const filteredStudents = filterStudents(students, currentCohort, coverLetter, currentCoverStatus, studentResume, currentResumeStatus, linkedAccount, linkedAccountStatus, personalNarrative, narrativeStatus, hunterAccess, currentAccess, currentStatus, currentClearance,  educationStatus, selectedManager);
   
   return (
     <>

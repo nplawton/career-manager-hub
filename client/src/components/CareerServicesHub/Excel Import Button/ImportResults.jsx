@@ -4,6 +4,8 @@ import { StudentsContext } from '../../../context/studentsContext';
 import { ManagersContext } from '../../../context/managersContext';
 
 export default function ImportResults({handleButtonClick, newStudents, importManager, importMCSP}) {
+
+    const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://career-services-server.onrender.com';
     
     const studentContext = useContext(StudentsContext);
     const students = studentContext.studentsData;
@@ -30,7 +32,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
             student.cohort = `MCSP-${importMCSP}`     // Adding Identified Career Manager to Student
             student.college_degeree = `Unknown`       // Adding Identified Career Manager to Student
 
-            fetch(`https://career-services-server.onrender.com/students`, 
+            fetch(`${url}/students`, 
                 {
                     method:"POST", 
                     body: JSON.stringify(student),
@@ -49,7 +51,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
                             progress_stat: 'In-Progress'
                         }
 
-                        fetch(`https://career-services-server.onrender.com/students/${data.student_id}/milestones`, 
+                        fetch(`${url}/students/${data.student_id}/milestones`, 
                         {
                             method:"POST", 
                             body: JSON.stringify(newMilestone),

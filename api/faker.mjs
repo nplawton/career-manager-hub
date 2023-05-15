@@ -1,8 +1,32 @@
 import faker from 'faker';
 import pg from 'pg';
+import path from 'path';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 const { Pool } = pg;
 
-const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+let db;
+
+if(process.env.NODE_ENV === 'development') {
+    db = new Pool({  
+    user: process.env.POSTGRES_USER,
+    host: 'database',
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    port: 5432 
+    });
+} else {
+  // If the app is not running in the development environment, use the deployed database
+    db = new Pool({ connectionString: process.env.DATABASE_URL });
+}
 
 const cohorts = ['MCSP-16', 'MCSP-17', 'MCSP-18', 'MCSP-19', 'MCSP-20', 'MCSP-21', 'MCSP-22'];
 const careerStatus = ['Searching', 'Hired', 'Not Started'];
@@ -19,7 +43,7 @@ const seedStudents = async () => {
     for (let i = 0; i < SEED_STUDENT_ROWS; i++){
         let randomNumber = Math.floor(Math.random() * 3);  // Generates a random number between 0-2
         let randomNumber2 = Math.floor(Math.random() * 2); // Generates a random number between 0-1
-        let randomNumber3 = Math.floor(Math.random() * 4); // Generates a random number between 0-3
+        let randomNumber3 = Math.floor(Math.random() * 5); // Generates a random number between 0-4
         let randomNumber4 = Math.floor(Math.random() * 9); // Generates a random number between 0-8
 
         studentList.push({

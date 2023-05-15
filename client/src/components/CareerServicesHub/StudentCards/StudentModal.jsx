@@ -4,8 +4,8 @@ import './StudentModal.css';
 import { all } from 'axios';
 
 export default function StudentModal({handleModalToggle, student}) {
-const studentContext = useContext(StudentsContext);
-const students = studentContext.studentsData;
+
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://career-services-server.onrender.com';
 
 const milestoneProgressOptions = ['Un-Satisfactory', 'In-Progress', 'Completed'];
 const careerStatusOptions = ['Searching', 'Hired', 'Not Started'];
@@ -53,7 +53,7 @@ function handleUpdateStudent(e) {
     console.log(milestones);
     console.log(newUpdatedStudent);
 
-    fetch(`https://career-services-server.onrender.com/${student.student_id}`,
+    fetch(`${url}/${student.student_id}`,
                 {
                     method:"PATCH", 
                     body: JSON.stringify(newUpdatedStudent),
@@ -68,7 +68,7 @@ function handleUpdateStudent(e) {
                     milestones.forEach((milestone) => {
 
 
-                        fetch(`https://career-services-server.onrender.com/${data.student_id}/milestones/${milestone.mile_id}`, 
+                        fetch(`${url}/students/${data.student_id}/milestones/${milestone.mile_id}`, 
                         {
                             method:"PATCH", 
                             body: JSON.stringify(milestone),

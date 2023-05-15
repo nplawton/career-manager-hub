@@ -5,6 +5,7 @@ import Add_Student_Modal from "./AddStudentModal";
 import AddStudentInfo from "./AddStudentInfo";
 
 
+
 function AddStudent() {
     const [ addStudent, setAddStudent ] = useState(false)
 

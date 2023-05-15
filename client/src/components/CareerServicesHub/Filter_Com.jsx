@@ -1,15 +1,16 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import './filter.css';
 import { StudentsContext } from '../../context/studentsContext';
-import { ManagersContext } from '../../context/managersContext';
+import { ManagersContext } from "../../context/managersContext";
+import SearchBar from './SearchFunction/Search';
 
 
-function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCoverStatus, currentCoverStatus, setStudentResume, currentResumeStatus, setCurrentResumeStatus,setLinkedAccount, linkedAccountStatus, setLinkedAccountStatus, setPersonalNarrative, narrativeStatus, setNarrativeStatus, setHunterAccess, currentAccess, setCurrentAccess, currentStatus, setCurrentStatus, currentClearance, setCurrentClearance, educationStatus, setEducationStatus, currentFirstManager, setCurrentFirstManager, currentLastManager, setCurrentLastManager }) {
+function Filter({ searchTerm, setSearchTerm, currentCohort, setCurrentCohort, setCoverLetter, setCurrentCoverStatus, currentCoverStatus, setStudentResume, currentResumeStatus, setCurrentResumeStatus,setLinkedAccount, linkedAccountStatus, setLinkedAccountStatus, setPersonalNarrative, narrativeStatus, setNarrativeStatus, setHunterAccess, currentAccess, setCurrentAccess, currentStatus, setCurrentStatus, currentClearance, setCurrentClearance, educationStatus, setEducationStatus, setSelectedManager, setSelectedManagerFull }) {
   
   const studentContext = useContext(StudentsContext);
   const students = studentContext.studentsData;
-
+  
   const managersContext = useContext(ManagersContext);
   const managers = managersContext.managersData;
   const managerInputRef = useRef();
@@ -20,6 +21,10 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
   const progress_stat = ['In-Progress', 'Completed', 'Un-Satisfactory'];
   const ed_status = ['Undetermined', 'None', 'Associate in CS/STEM', 'Associate Not in CS/STEM', 'Bachelor in CS/STEM', 'Bachelor Not in CS/STEM', 'Masters in CS/STEM', 'Masters Not in CS/STEM'];
 
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
+  
   const handleCheckedCover = (e) => {
     setCurrentCoverStatus(e.target.value);
     setCoverLetter('Cover Letter');
@@ -46,14 +51,28 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
   }
 
   const handleManagerChange = (e) => {
-    const selectedManager = e.target.value;
-    setCurrentFirstManager(managers[selectedManager - 1].tscm_first);
-    setCurrentLastManager(managers[selectedManager - 1].tscm_last);
-    console.log(careerManager);
+    const selectedManagerId = parseInt(e.target.value)
+    // console.log('Selected manager ID:', selectedManagerId);
+    // console.log('Managers:', managers);
+
+    const selectManager = managers.find(manager => manager.tscm_id === selectedManagerId);
+    // console.log('Selected manager first name:', selectManager.tscm_first);
+    // console.log('Selected manager last name:', selectManager.tscm_last);
+    
+
+    if (selectManager) {
+      setSelectedManager(selectManager.tscm_first);
+    }
+
   }
 
   return (
     <div id='filt_container' >
+      <SearchBar 
+        onSearch={handleSearch} 
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <div id='filt_subcontainer' >
         <h1 id='filt_title' >Select a MCSP</h1>
           <select
@@ -81,7 +100,7 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
           value={currentCoverStatus}
           onChange={handleCheckedCover}
         >
-          <option value=''>Document Status</option>
+          <option value=''>Any Status</option>
           {
             progress_stat.map((docStatus, index) => {
               return (
@@ -102,7 +121,7 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
           value={currentResumeStatus}
           onChange={handleCheckedResume}
         >
-          <option value=''>Document Status</option>
+          <option value=''>Any Status</option>
           {
             progress_stat.map((docStatus, index) => {
               return (
@@ -123,7 +142,7 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
           value={linkedAccountStatus}
           onChange={handleLinkedAccount}
         >
-          <option value=''>Document Status</option>
+          <option value=''>Any Status</option>
           {
             progress_stat.map((docStatus, index) => {
               return (
@@ -144,7 +163,7 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
           value={narrativeStatus}
           onChange={handleNarrativeStatus}
         >
-          <option value=''>Document Status</option>
+          <option value=''>Any Status</option>
           {
             progress_stat.map((docStatus, index) => {
               return (
@@ -165,7 +184,7 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
           value={currentAccess}
           onChange={handleHunterAccess}
         >
-          <option value=''>Document Status</option>
+          <option value=''>Any Status</option>
           {
             progress_stat.map((docStatus, index) => {
               return (
@@ -247,12 +266,13 @@ function Filter({ currentCohort, setCurrentCohort, setCoverLetter, setCurrentCov
         <h1 id='filt_title' >Service Career Manager</h1>
         <select
           ref={managerInputRef}
-          onChange={(e) => handleManagerChange(e)}
+          onChange={handleManagerChange}
+          id='manager-select'
         >
-          <option>Select a Career Service Manager</option>
+          <option>Career Service Manager</option>
           {managers.map((manager) => {
             return (
-              <option value={manager.tscm_id}>
+              <option key={managers.tscm_id} value={manager.tscm_id}>
                 {manager.tscm_first}, {manager.tscm_last}{" "}
               </option>
             );
