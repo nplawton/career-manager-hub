@@ -63,7 +63,6 @@ const seedStudents = async () => {
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
 
         for (let i = 0; i < SEED_STUDENT_ROWS; i++){
-            console.log(`seeded ${i} students!`);
             const {student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id} = studentList[i];
             const result = await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id]);
             console.log(result.rows[0])

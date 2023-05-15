@@ -4,10 +4,12 @@
   "description": "",
   "main": "vite.config.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "start": "node src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/server.mjs",
+    "start": "node src/server.mjs",
     "test": "echo 'add tests'",
-    "seed": "cross-env NODE_ENV=development node faker.mjs"
+    "seed": "cross-env NODE_ENV=development node faker.mjs",
+    "seedDep": "node faker.mjs",
+    "migrate": "node src/db/migration.js"
   },
   "author": "",
   "license": "ISC",
