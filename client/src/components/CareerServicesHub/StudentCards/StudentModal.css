@@ -8,7 +8,7 @@
     top: 0;
     left: 0;
 
-    background-color: rgba(61, 61, 63, 0.2);
+    background-color: rgba(0, 0, 0, 0.678);
     backdrop-filter: blur(5px);
     transition: ease .5s;
     
@@ -16,6 +16,9 @@
 
 .student-tracker-modal {
     font-family: 'KelsonSans';
+    font-size:larger;
+    color: white;
+    border-radius: 10px;
     padding: 20px;
     height: fit-content;
     width: 30vw;
@@ -23,7 +26,7 @@
     z-index: 3;
     top: 20%;
     left: 20%;
-    background-color: rgb(255, 255, 255); 
+    background-color: rgba(0, 0, 0, 0.678); 
     transition:ease .5s;
 }
 
@@ -32,7 +35,6 @@
     font-family: 'KelsonSans-Bold';
     font-size:xx-large;
     font-weight: bold;
-    text-decoration: underline;
 }
 
 .student-tracker-modal-mcsp {
@@ -40,21 +42,18 @@
     font-family: 'KelsonSans-Bold';
     font-size:larger;
     font-weight: bold;
-    text-decoration: underline; 
 }
 
 .student-tracker-modal-milestones-div {
     font-family: 'KelsonSans-Bold';
     font-size: x-large;
     font-weight: bold;
-    text-decoration: underline;
 }
 
 .student-tracker-modal-additional-information {
     font-family: 'KelsonSans-Bold';
     font-size: x-large;
     font-weight: bold;
-    text-decoration: underline;
 }
 
 .update-student-container {
@@ -63,14 +62,35 @@
     align-items: center;
 }
 
+.update-student {
+    color:white;
+    border:solid rgb(116, 116, 116) 1px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
 
 .student-backdrop:hover{
     cursor: pointer;
-    background-color: rgba(61, 61, 63, 0.5);
+    background-color: rgba(61, 61, 63, 0);
     backdrop-filter: blur(0px);
 }
 
 .student-backdrop:hover + .student-tracker-modal{
+    color: white;
     transform: scale(.95);
-    filter: blur(3px);
+    filter: blur(10px);
+    
+}
+
+.student-tracker-modal select{
+    font-family: 'kelsonsans';
+    color:white;
+    border:solid rgb(116, 116, 116) 1px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.student-tracker-modal option{
+    background-color: black;
 }

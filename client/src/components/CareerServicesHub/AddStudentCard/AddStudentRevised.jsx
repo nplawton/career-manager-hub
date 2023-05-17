@@ -2,14 +2,11 @@ import React, { useContext, useState, useRef } from "react";
 import "./AddStudentCard.css";
 import { ManagersContext } from "../../../context/managersContext";
 import { StudentsContext } from "../../../context/studentsContext";
-import ExcelImportButton from '../Excel Import Button/ExcelImportButton';
 
-function AddStudentInfo({ setAddStudent }) {
+function AddStudentRevised({ setAddStudent }) {
 
   const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://career-services-server.onrender.com';
 
-  const [currentClearance, setCurrentClearance] = useState("");
-  const [currentEducation, setCurrentEducation] = useState("");
   const [newStudent, setNewStudent] = useState({
     cohort: "",
     tscm_id: 0,
@@ -36,6 +33,12 @@ function AddStudentInfo({ setAddStudent }) {
     "Masters Not in CS/STEM",
   ];
 
+  const firstStudent = students[0];
+  const milestoneFields = firstStudent.milestones.map((milestone) => milestone.mile_name);
+  const milestoneArray = milestoneFields.map((milestone) => milestone);
+  console.log(milestoneFields);
+  
+
   const handleFirstNameChange = (event) => {
     setNewStudent({ ...newStudent, student_first: event.target.value });
   };
@@ -54,13 +57,15 @@ function AddStudentInfo({ setAddStudent }) {
   };
 
   const handleEducationChange = (event) => {
+    const currentEducation = event.target.value;
     setNewStudent({ ...newStudent, college_degree: currentEducation });
     console.log("log education", currentEducation);
   };
 
   const handleClearanceChange = (event) => {
-    setNewStudent({ ...newStudent, clearance: currentClearance });
-    console.log(currentClearance);
+    const currentClearance = event.target.value;
+    setNewStudent({ ...newStudent, sec_clearance: currentClearance });
+    console.log('current clearance', currentClearance);
   };
 
   const handleMCSPChange = (event) => {
@@ -68,40 +73,59 @@ function AddStudentInfo({ setAddStudent }) {
     setNewStudent({ ...newStudent, cohort: selectedCohort });
   };
 
-  const addNewStudent = () => {
+  const addNewStudent = async () => {
     const newStudentObj = {
-      cohort: mcspInputRef.current.value,
+      course_status: "Student",
+      career_status: "Not Started",
+      cohort: "MCSP-" + mcspInputRef.current.value,
       tscm_id: managerInputRef.current.value,
       student_first: newStudent.student_first,
       student_last: newStudent.student_last,
       college_degree: newStudent.college_degree,
       sec_clearance: newStudent.sec_clearance,
     };
+    console.log('new student object:', newStudentObj);
     try {
-      const response = fetch(`${url}/students`, {
+      const response = await fetch(`${url}/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newStudentObj),
       });
-    const addedStudent = (response) => response.json();
-    return addedStudent;
+
+      const addedStudent = await response.json();
+
+      //Adding Milestones to Student
+      milestoneArray.forEach((milestone_name) => {
+        const newMilestone = {
+          mile_name: milestone_name,
+          progress_stat: "In-Progress",
+        };
+
+        fetch(`${url}/students/${addedStudent.student_id}/milestones`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newMilestone),
+        });
+      });
+      return addedStudent;
     } catch (error) {
-    console.log(error);
+      console.log(error);
     } finally {
-    setAddStudent(false);
+      setAddStudent(false);
     }
   };
 
   return (
     <div className="add-container">
-      <ExcelImportButton />
       <div className="add-subcontainer">
-        <div id="add-text">Select MCSP #</div>
+        <h1 id="add-text">Select MCSP</h1>
         <span>
           {" "}
-          {" "}
+          MCSP:{" "}
           <input
             type="number"
             className="import-input-MCSP"
@@ -111,13 +135,13 @@ function AddStudentInfo({ setAddStudent }) {
         </span>
       </div>
       <div className="add-subcontainer">
-        <div id="add-text">Select Manager</div>
+        <h1 id="add-text">Managers</h1>
         <select
-          className="add-import-input"
+          className="import-input"
           ref={managerInputRef}
           onChange={handleManagerChange}
         >
-        <option>Select a Career Service Manager</option>
+          <option>Select a Career Service Manager</option>
           {managers.map((manager) => {
             return (
               <option value={manager.tscm_id}>
@@ -128,7 +152,7 @@ function AddStudentInfo({ setAddStudent }) {
         </select>
       </div>
       <div className="add-subcontainer">
-        <div id="add-text">Enter First Name</div>
+        <h1 id="add-text">Enter First Name:</h1>
         <input
           type="text"
           placeholder="first name"
@@ -137,7 +161,7 @@ function AddStudentInfo({ setAddStudent }) {
         />
       </div>
       <div className="add-subcontainer">
-        <div id="add-text">Enter Last Name</div>
+        <h1 id="add-text">Enter Last Name:</h1>
         <input
           type="text"
           placeholder="last name"
@@ -146,15 +170,18 @@ function AddStudentInfo({ setAddStudent }) {
         />
       </div>
       <div className="add-subcontainer">
-        <div id="add-text">Education</div>
+        <h1 id="add-text">Education:</h1>
         <select
-          value={newStudent.addEducation}
+          value={newStudent.college_degree}
           onChange={handleEducationChange}
         >
           <option>Select Education</option>
           {addEducation.map((education, index) => {
             return (
-              <option key={index} value={education}>
+              <option 
+                key={index} 
+                value={education}
+              >
                 {education}
               </option>
             );
@@ -162,25 +189,27 @@ function AddStudentInfo({ setAddStudent }) {
         </select>
       </div>
       <div className="add-subcontainer">
-        <div id="add-text">Security Clearance</div>
+        <h1 id="add-text">Security Clearance:</h1>
         <select
-          value={newStudent.secClearance}
+          value={newStudent.sec_clearance}
           onChange={handleClearanceChange}
         >
           <option value="">Select a Security Clearance</option>
           {secClearance.map((security, index) => {
             return (
-              <option key={index} value={security}>
+              <option 
+                key={index} 
+                value={security}
+              >
                 {security}
               </option>
             );
           })}
         </select>
       </div>
-      <br/>
-      <button className="add-student-button" onClick={addNewStudent}>Add New Student</button>
+      <button onClick={addNewStudent}>Add New Student</button>
     </div>
   );
 }
 
-export default AddStudentInfo;
+export default AddStudentRevised;

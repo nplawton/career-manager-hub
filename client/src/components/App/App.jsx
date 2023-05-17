@@ -13,6 +13,22 @@ const App = () => {
   const [loggedInfo, setLoggedInfo] = useState("");
   const [showTransition, setShowTransition] = useState(false);
 
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    
+    if (token) {
+      // If a token is stored in local storage, consider the user as logged in.
+      setLoggedInfo(token);
+    }
+  }, [loggedInfo]);
+
+  const handleLogOff = () => {
+    localStorage.removeItem('authToken')
+    setShowTransition('false')
+    setLoggedInfo('')
+  }
+
   useEffect(() => {
     if (loggedInfo) {
       document.body.style.background = "linear-gradient(180deg, rgba(21,4,89,1) 22%, rgba(247,130,24,1) 100%)";
@@ -36,13 +52,13 @@ const App = () => {
                 path="/"
                 element={
                   loggedInfo ? (
-                    <CareerServicesHub />
+                    <CareerServicesHub handleLogOff={handleLogOff}/>
                   ) : (
                     <LogInPage handleLogin={handleLogin} />
                   )
                 }
               />
-              <Route path="/mainpage" element={<CareerServicesHub />} />
+              <Route path="/mainpage" element={<CareerServicesHub handleLogOff={handleLogOff}/>} />
             </Routes>
           </ManagersContextProvider>
         </StudentsContextProvider>

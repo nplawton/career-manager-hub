@@ -4,10 +4,7 @@
 
 .modal-on{
     display: flex;
-
     justify-content: center;
     align-content: center;
     position: fixed;
-
-    border: solid red 2px;
 }

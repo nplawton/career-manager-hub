@@ -18,15 +18,17 @@ const LogInPage = ({ handleLogin }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response) {
+      if (!response.ok) {
         throw new Error("Invalid email or password");
       }
 
       const responseData = await response.json();
 
+
       if (responseData.success) {
         console.log("Login successful:", responseData);
-        handleLogin(responseData); // Call the handleLogin function passed as a prop
+        localStorage.setItem('authToken', responseData.accessToken);
+        handleLogin(responseData.accessToken); // Call the handleLogin function passed as a prop
       } else {
         setErrorRelay(responseData.message);
       }

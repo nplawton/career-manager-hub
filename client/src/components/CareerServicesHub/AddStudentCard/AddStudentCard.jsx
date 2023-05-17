@@ -3,31 +3,18 @@ import { StudentsContext } from "../../../context/studentsContext";
 import "./AddStudentCard.css";
 import Add_Student_Modal from "./AddStudentModal";
 import AddStudentInfo from "./AddStudentInfo";
+import CSVInputRevised from "./CSVInputRevised";
+import AddStudentRevised from "./AddStudentRevised";
 
 
 
 function AddStudent() {
-    const [ addStudent, setAddStudent ] = useState(false)
-
+    const [ addStudent, setAddStudent ] = useState(false);
+    const [btnSwitch, setBtnSwitch] = useState(true);
 
     function handleAddStudentModalToggle() {
-      const newAddStudent = !addStudent;
-      setAddStudent(newAddStudent);
+      setAddStudent((prevState) => !prevState);
     }
-  
-      // return (
-      //   <div className="btnWrapper" id="add-card">
-      //     <button onClick={() => setAddStudent(true)} id="add-card-name">
-      //       &#x271A;
-      //     </button>
-      //     <Add_Student_Modal
-      //       addStudent={addStudent}
-      //       onClose={() => setAddStudent(false)}
-      //     >
-      //       <AddStudentInfo setAddStudent={setAddStudent} />
-      //     </Add_Student_Modal>
-      //   </div>
-      // );
 
     return (
       <div className="btnWrapper" id="add-card">
@@ -36,8 +23,14 @@ function AddStudent() {
         </button>
         <Add_Student_Modal
           addStudent={addStudent}
-          handleAddStudentModalToggle={handleAddStudentModalToggle}>
-          <AddStudentInfo setAddStudent={setAddStudent} />
+          handleAddStudentModalToggle={handleAddStudentModalToggle}
+        >
+          <button onClick={() => setBtnSwitch(true)}>Bulk Import</button>
+          <button onClick={() => setBtnSwitch(false)}>Single Student</button>
+          {btnSwitch
+            ? <CSVInputRevised />
+            : <AddStudentRevised />
+          }
         </Add_Student_Modal>
       </div>
     );

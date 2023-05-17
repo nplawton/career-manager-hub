@@ -3,7 +3,7 @@ import './ImportResults.css';
 import { StudentsContext } from '../../../context/studentsContext';
 import { ManagersContext } from '../../../context/managersContext';
 
-export default function ImportResults({handleButtonClick, newStudents, importManager, importMCSP}) {
+export default function ImportResults({setAddStudent, newStudents, importManager, importMCSP}) {
 
     const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://career-services-server.onrender.com';
     
@@ -23,7 +23,7 @@ export default function ImportResults({handleButtonClick, newStudents, importMan
     }
 
     function handleUploadClick(){
-        handleButtonClick()
+        setAddStudent(false);
 
         newStudents.map((student) => {
             student.career_status = 'Not Started'     //Adding Career Status to Student

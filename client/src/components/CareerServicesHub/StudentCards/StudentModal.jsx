@@ -53,7 +53,7 @@ function handleUpdateStudent(e) {
     console.log(milestones);
     console.log(newUpdatedStudent);
 
-    fetch(`${url}/${student.student_id}`,
+    fetch(`${url}/students/${student.student_id}`,
                 {
                     method:"PATCH", 
                     body: JSON.stringify(newUpdatedStudent),
@@ -109,7 +109,7 @@ function handleUpdateStudent(e) {
         <br/>
         <div className='student-tracker-modal-milestones-div'>Milestones</div>
         <div className='student-tracker-modal-cover-status'>
-            <label htmlFor='cover-status'>Cover Letter:</label>
+            <label htmlFor='cover-status'>Cover Letter: </label>
             <select name='Cover Letter Status' ref={coverLetterInputRef}>
             <option value={student.milestones[0].progress_stat}>{student.milestones[0].progress_stat}</option>
             {milestoneProgressOptions.map((option) =>{
@@ -123,7 +123,7 @@ function handleUpdateStudent(e) {
 
         </div>
         <div className='student-tracker-modal-resume-status'>
-            <label htmlFor='resume-status'>Resume:</label>
+            <label htmlFor='resume-status'>Resume: </label>
             <select name='Resume Status' ref={resumeInputRef}>
             <option value={student.milestones[1].progress_stat}>{student.milestones[1].progress_stat}</option>
             {milestoneProgressOptions.map((option) =>{
@@ -136,7 +136,7 @@ function handleUpdateStudent(e) {
             </select>
         </div>
         <div className='student-tracker-modal-linked-status'>
-            <label htmlFor='linked-status'>Linked In Profile:</label>
+            <label htmlFor='linked-status'>Linked In Profile: </label>
             <select name='Linked In Status' ref={linkedInInputRef}>
             <option value={student.milestones[2].progress_stat}>{student.milestones[2].progress_stat}</option>
             {milestoneProgressOptions.map((option) =>{
@@ -149,7 +149,7 @@ function handleUpdateStudent(e) {
             </select>
         </div>
         <div className='student-tracker-modal-narrative-status'>
-            <label htmlFor='narrative-status'>Personal Narrative:</label>
+            <label htmlFor='narrative-status'>Personal Narrative: </label>
             <select name='Narrative Status' ref={narrativeInputRef}>
             <option value={student.milestones[3].progress_stat}>{student.milestones[3].progress_stat}</option>
             {milestoneProgressOptions.map((option) =>{
@@ -162,7 +162,7 @@ function handleUpdateStudent(e) {
             </select>
         </div>
         <div className='student-tracker-modal-huntr-status'>
-            <label htmlFor='huntr-status'>Huntr Access:</label>
+            <label htmlFor='huntr-status'>Huntr Access: </label>
             <select name='Huntr Status' ref={huntrInputRef}>
             <option value={student.milestones[4].progress_stat}>{student.milestones[4].progress_stat}</option>
             {milestoneProgressOptions.map((option) =>{
@@ -178,7 +178,7 @@ function handleUpdateStudent(e) {
         <br/>
         <div className='student-tracker-modal-additional-information'>Additional Information</div>
         <div className='student-tracker-modal-career-status'>
-            <label htmlFor='career-status'>Career Status:</label>
+            <label htmlFor='career-status'>Career Status: </label>
             <select name='Career Status' ref={careerInputRef}>
             <option value={student.career_status}>{student.career_status}</option>
             {careerStatusOptions.map((option) =>{
@@ -191,7 +191,7 @@ function handleUpdateStudent(e) {
             </select>
         </div>
         <div className='student-tracker-modal-course-status'>
-            <label htmlFor='course-status'>Course Status:</label>
+            <label htmlFor='course-status'>Course Status: </label>
             <select name='Course Status' ref={courseInputRef}>
             <option value={student.course_status}>{student.course_status}</option>
             {courseStatusOptions.map((option) =>{
@@ -204,7 +204,7 @@ function handleUpdateStudent(e) {
             </select>
         </div>
         <div className='student-tracker-modal-clearance-status'>
-            <label htmlFor='clearance-status'>Clearance Status:</label>
+            <label htmlFor='clearance-status'>Clearance Status: </label>
             <select name='Clearance Status' ref={clearanceInputRef}>
             <option value={student.sec_clearance}>{student.sec_clearance}</option>
             {clearanceStatusOptions.map((option) =>{
@@ -217,7 +217,7 @@ function handleUpdateStudent(e) {
             </select>
         </div>
         <div className='student-tracker-modal-degree-status'>
-            <label htmlFor='degree-status'>Degree Status:</label>
+            <label htmlFor='degree-status'>Degree Status: </label>
             <select name='Degree Status' ref={degreeInputRef}>
             <option value={student.college_degree}>{student.college_degree}</option>
             {degreeStatusOptions.map((option) =>{

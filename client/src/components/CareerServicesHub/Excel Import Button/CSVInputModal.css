@@ -26,18 +26,16 @@
 
 .import-modal-container{
     transition: ease .5s;
+    position: relative;
+    z-index: 1001;
     height: fit-content;
-    width: 50vw;
-
-    font-family: 'KelsonSans-Light', sans-serif;
-
-    position: fixed;
-    z-index: 3;
-    
-    background-color: rgb(255, 255, 255, 1);
+    width: 50vh;
+    padding: 20px;
+    font-family: 'KelsonSans';
+    font-size:larger;
+    color: white;
     border-radius: 10px;
-
-    animation: fadeDownIn 1s;
+    background-color: rgba(0, 0, 0, 0.678); 
 }
 
 .import-modal-header{

@@ -54,7 +54,7 @@ const seedStudents = async () => {
             career_status: careerStatus[randomNumber],
             course_status: courseStatus[randomNumber2],
             college_degree: collegeDegree[randomNumber4],
-            tscm_id: faker.datatype.number({ min: 1, max: 7 }),
+            tscm__id: faker.datatype.number({ min: 1, max: 7 }),
         });
     }
 
@@ -63,9 +63,9 @@ const seedStudents = async () => {
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
 
         for (let i = 0; i < SEED_STUDENT_ROWS; i++){
-            const {student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id} = studentList[i];
-            const result = await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id]);
-            console.log(result.rows[0])
+            console.log(`seeded ${i} students!`);
+            const {student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm__id} = studentList[i];
+            await db.query(queryString, [student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm__id]);
         }
 
         console.log('Students seeded successfully');
@@ -97,7 +97,6 @@ const seedServiceManager = async () => {
             console.log(`seeded ${i} TSCM!`);
             const {tscm_first, tscm_last, login_id, tscm_password, tscm_email, tscm_avatar} = careerManager[i];
             await db.query(queryString, [tscm_first, tscm_last, login_id, tscm_password, tscm_email, tscm_avatar]);
-
         }
 
         console.log('TSCM seeded successfully');
@@ -117,14 +116,11 @@ const seedCalendar = async () => {
     for (let i = 0; i < 15; i++){
         let randomNumber = Math.floor(Math.random() * 3);
 
-        const randomDate = faker.date.between(startDate, endDate);
-        const randomTime = randomDate.toLocaleTimeString('en-US', { hour12: false });
-
         calendarEvent.push({
             event_name: faker.company.companyName(),
             tscm_id: faker.datatype.number({ min: 1, max: 7 }),
-            event_date: randomDate,
-            event_time: randomTime,
+            event_date: faker.date.between(startDate, endDate),
+            event_time: faker.datatype.datetime(),
             speak_con: speakContactArray[randomNumber],
             event_descrip: faker.lorem.paragraph(4),
         });

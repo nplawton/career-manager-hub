@@ -6,7 +6,7 @@ import { ManagersContext } from "../../context/managersContext";
 import SearchBar from './SearchFunction/Search';
 
 
-function Filter({ searchTerm, setSearchTerm, currentCohort, setCurrentCohort, setCoverLetter, setCurrentCoverStatus, currentCoverStatus, setStudentResume, currentResumeStatus, setCurrentResumeStatus,setLinkedAccount, linkedAccountStatus, setLinkedAccountStatus, setPersonalNarrative, narrativeStatus, setNarrativeStatus, setHunterAccess, currentAccess, setCurrentAccess, currentStatus, setCurrentStatus, currentClearance, setCurrentClearance, educationStatus, setEducationStatus, setSelectedManager, setSelectedManagerFull }) {
+function Filter({ searchTerm, setSearchTerm, currentCohort, setCurrentCohort, setCoverLetter, setCurrentCoverStatus, currentCoverStatus, setStudentResume, currentResumeStatus, setCurrentResumeStatus,setLinkedAccount, linkedAccountStatus, setLinkedAccountStatus, setPersonalNarrative, narrativeStatus, setNarrativeStatus, setHunterAccess, currentAccess, setCurrentAccess, currentStatus, setCurrentStatus, currentClearance, setCurrentClearance, educationStatus, setEducationStatus, setSelectedManager, setSelectedManagerFull, handleClear }) {
   
   const studentContext = useContext(StudentsContext);
   const students = studentContext.studentsData;
@@ -73,6 +73,13 @@ function Filter({ searchTerm, setSearchTerm, currentCohort, setCurrentCohort, se
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
+      <button
+          onClick={handleClear}
+          className='clear-filter-button'
+        >
+          Clear Filter
+      </button>
+
       <div id='filt_subcontainer' >
         <h1 id='filt_title' >Select a MCSP</h1>
           <select

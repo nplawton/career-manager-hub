@@ -31,7 +31,7 @@ export default function StudentCard({student}) {
             } else {
                 setMilestoneProgress('Completed')
             } 
-    }, []);
+    }, [student]);
 
     // console.log('student #' + student.student_id + ' total ' + count);
 
@@ -43,9 +43,9 @@ export default function StudentCard({student}) {
     return(
         <>
             <div onClick={handleModalToggle} className={milestoneProgress == 'Un-Satisfactory'? 'un-satisfactory-card student-card': milestoneProgress == 'In-Progress'? 'in-progress-card student-card' : 'completed-card student-card'}>
-                <span className='student-card-name'>{student.student_first} {student.student_last}</span>
+                <span className='student-card-name'>{student.student_first} .{student.student_last[0]}</span>
                 <span className='student-card-cohort'>{student.cohort}</span>
-                <span className='student-card-manager'>{student.tscm_first} {student.tscm_last}</span>
+                <span className='student-card-manager'>{student.tscm_first} .{student.tscm_last[0]}</span>
                 </div>
             <div className={modalToggle ? 'modal-on' : 'modal-off'}>
                 <StudentModal handleModalToggle = {handleModalToggle} student = {student}/>

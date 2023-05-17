@@ -1,17 +1,28 @@
 .student-card-container {
   display: grid;
-  width: 70vw;
-  height: 90vh;
-  background: rgba(126, 125, 125, 0.247);
+  width: 98%;
+  height: 96.8vh;
   overflow: auto;
 
   padding: 15px;
-  margin-left: auto;
-  margin-right: auto;
 
-  border:solid white 2px;
-  border-radius: 10px;
+  border: none;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  grid-gap: 5px;
+  grid-gap: auto;
   align-items: stretch;
+}
+
+.loading-card {
+  color: white;
+  height: fit-content;
+  width: 150px;
+  border: none;
+  padding: 5%;
+  text-align: center;
+  font-family: 'kelsonsans-light';
+  border-radius: 10px;
+  margin: 2%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  background-color:rgba(61, 61, 61, 0.76);
+
 }

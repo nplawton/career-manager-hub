@@ -3,6 +3,8 @@ import './CSVInputModal.css';
 import ImportResults from './ImportResults';
 import { ManagersContext } from '../../../context/managersContext';
 
+import exportFromJSON from 'export-from-json';
+
 export default function CSVInput({ handleButtonClick }) {
 
   const initialStudents = [ {
@@ -80,6 +82,15 @@ export default function CSVInput({ handleButtonClick }) {
      setResultsToggle(newResultsToggle);
   };
 
+  function excelImportTemplate(){
+    const fields = ['student_first', 'student_last', 'sec_clearance'];
+    const data = [{student_first :'David', student_last : 'Garcia', sec_clearance : 'TOP SECRET//SCI'}];
+    const fileName = `ImportStudentTemplate`;
+    const exportType = exportFromJSON.types.csv;
+
+    exportFromJSON({data, fileName, fields: fields, exportType});
+  }
+
   return (
     <>
       <div className='modal-backdrop' onClick={handleButtonClick}>
@@ -88,7 +99,7 @@ export default function CSVInput({ handleButtonClick }) {
           <span className='exit-button' onClick={handleButtonClick}> X </span>
           <div className='import-modal-description-container'>
             <span className='import-modal-description-text'> Please choose a MCSP/Career Service Manager and upload a .csv file with information about the students</span>
-            <a className='import-modal-description-text'> Click here for a excel template </a>
+            <a className='import-modal-description-text import-csv-template-button' onClick={excelImportTemplate}> Click here for a csv template </a>
           </div>
           <div className='import-button-container'>
             <div className='import-button-container-inputs'>

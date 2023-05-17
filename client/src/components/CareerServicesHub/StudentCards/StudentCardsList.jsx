@@ -15,14 +15,24 @@ export default function StudentCardslist ({ filterStudents, currentCohort, cover
   return (
     <>
         <div className='student-card-container'>
-            <AddStudent />
+            <AddStudent filterStudents={filterStudents}/>
             {filterStudents != null ? filteredStudents.map((student) => {
                 {/* console.log(student); */}
-            return(
-                <div key={student.student_id}>
-                    <StudentCard  student={student}/>
-                </div>
-            )
+                if (student.student_first === "Test")
+                {
+                    return(
+                        <div className='loading-card'>
+                            Loading...
+                        </div>
+                    )
+                }
+                else {
+                    return(
+                        <div key={student.student_id}>
+                            <StudentCard  student={student}/>
+                        </div>
+                    )
+                }
             }) : "Loading"}
         </div>
     </>

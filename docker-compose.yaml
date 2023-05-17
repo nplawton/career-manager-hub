@@ -36,7 +36,7 @@ services:
       # This allows live reload inside a docker container by mapping your
       # filesystem to the container's.
       - ./api/src:/code/src
-    command: /bin/sh -c "sleep 2 && npm run seed && npm run dev"
+    # command: /bin/sh -c "sleep 2 && npm run seed && npm run dev"
 
 
   app:

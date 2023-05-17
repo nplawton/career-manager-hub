@@ -3,6 +3,7 @@ import { EventsContext } from '../../context/eventsContext';
 import { StudentsContext } from '../../context/studentsContext';
 import { ManagersContext } from '../../context/managersContext';
 import StudentCardsList from './StudentCards/StudentCardsList';
+import { FaUserCircle } from 'react-icons/fa';
 import './CareerServicesHub.css'
 
 import Export from './Export';
@@ -11,7 +12,7 @@ import Filter from './Filter_Com';
 import galvanizeLogo from '../logIn/galvanizeLogo.webp';
 import SearchBar from './SearchFunction/Search';
 
-export default function CareerServicesHub() {
+export default function CareerServicesHub( {handleLogOff} ) {
 
   //const [filterOpen, setFilterOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,6 +31,8 @@ export default function CareerServicesHub() {
   const [currentClearance, setCurrentClearance] = useState('');
   const [educationStatus, setEducationStatus] = useState('');
   const [selectedManager, setSelectedManager] = useState('');
+
+  const [toggleFiltersBar, setToggleFiltersBar] = useState(true);
 
   const eventContext = useContext(EventsContext);
   const events = eventContext.eventsData;
@@ -177,10 +180,17 @@ export default function CareerServicesHub() {
     selectElement.value = 'Career Service Manager';
   }
 
+  function handleFilterToggle () {
+    const newToggleFiltersBar = !toggleFiltersBar;
+    setToggleFiltersBar(newToggleFiltersBar);
+  }
+
   return (
-    <div className='body_container'>      
+    <div className='body_container'>  
       <div className='left_container'>
-        <img src={galvanizeLogo} ></img>
+        <div className={toggleFiltersBar ? 'left-container-filters': 'collapsed-filters-container'}>
+        <img className='logo' src={galvanizeLogo} ></img>
+        
         <Filter 
           setSearchTerm={setSearchTerm}
           searchTerm={searchTerm}
@@ -209,6 +219,7 @@ export default function CareerServicesHub() {
           setEducationStatus={setEducationStatus}
           selectedManager={selectedManager}
           setSelectedManager={setSelectedManager}
+          handleClear={handleClear}
         />
         <Export 
           filterStudents={filterStudents}
@@ -228,14 +239,16 @@ export default function CareerServicesHub() {
           educationStatus={educationStatus}
           selectedManager={selectedManager}
         />
-        <button
-          onClick={handleClear}
-          className='header-buttons'
-        >
-          Clear Filter
-        </button>
+        <div className='profile-container'>
+          <button className='header-buttons' onClick={handleLogOff}>
+            <FaUserCircle/> Logout
+          </button>
+        </div>            
+        </div>
+        <button className='collapse-filter-button' onClick={handleFilterToggle}> &#8646; </button>
       </div>
       <div className='right_container'>
+
         <StudentCardsList
           filterStudents={filterStudents}
           currentCohort={currentCohort}

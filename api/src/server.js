@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import pg from 'pg';
+import jwt from 'jsonwebtoken'
 
 const { Pool } = pg;
 
@@ -56,27 +57,29 @@ app.post("/students", async (req, res, next) => {
   const sercurityClearance = req.body.sec_clearance;
   const careerStatus = req.body.career_status;
   const courseStatus = req.body.course_status;
+  const collegeDegree = req.body.college_degree;
   const tscm_id = req.body.tscm_id;
 
   const result = await db
-    .query("INSERT INTO student(student_first, student_last, cohort, sec_clearance, career_status, course_status, tscm_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", [firstName, lastName, cohort, sercurityClearance, careerStatus, courseStatus, tscm_id])
+    .query("INSERT INTO student(student_first, student_last, cohort, sec_clearance, career_status, course_status, college_degree, tscm_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *", [firstName, lastName, cohort, sercurityClearance, careerStatus, courseStatus, collegeDegree, tscm_id])
     .catch(next);
   res.send(result.rows[0]);
 })
 
 app.patch("/students/:id", async (req, res, next) => {
+  console.log(req.body);
   const id = req.params.id;
-
   const firstName = req.body.student_first;
   const lastName = req.body.student_last;
   const cohort = req.body.cohort;
   const sercurityClearance = req.body.sec_clearance;
   const careerStatus = req.body.career_status;
   const courseStatus = req.body.course_status;
+  const collegeDegree = req.body.college_degree;
   const tscm_id = req.body.tscm_id;
 
   const result = await db
-    .query("UPDATE student SET student_first = $1, student_last = $2, cohort = $3, sec_clearance = $4, career_status = $5, course_status = $6, tscm_id = $7 WHERE student_id = $8 RETURNING *", [firstName, lastName, cohort, sercurityClearance, careerStatus, courseStatus, tscm_id, id])
+    .query("UPDATE student SET student_first = $1, student_last = $2, cohort = $3, sec_clearance = $4, career_status = $5, course_status = $6, college_degree=$7, tscm_id = $8 WHERE student_id = $9 RETURNING *", [firstName, lastName, cohort, sercurityClearance, careerStatus, courseStatus, collegeDegree, tscm_id, id])
     .catch(next);
   res.send(result.rows[0]);
 })
@@ -84,9 +87,9 @@ app.patch("/students/:id", async (req, res, next) => {
 app.delete("/students/:id", async (req, res, next) => {
   const id = req.params.id;
 
-   await db.query("DELETE FROM milestone WHERE milestone.student_id = $1", [id])
+  await db.query("DELETE FROM milestone WHERE milestone.student_id = $1", [id])
 
-   await db.query("DELETE FROM student WHERE student.student_id = $1", [id])
+  await db.query("DELETE FROM student WHERE student.student_id = $1", [id])
     .catch(next);
   res.send('Sucessfully Deleted Student Record!');
 })
@@ -168,6 +171,8 @@ app.patch("/managers/:id", async (req, res, next) => {
   res.send(result.rows[0]);
 })
 
+//For front page log in
+
 app.post('/managers/login', async (req, res, next) => {
   const email = req.body.email;
   const inputPassword = req.body.password;
@@ -177,15 +182,19 @@ app.post('/managers/login', async (req, res, next) => {
     const manager = results.rows[0]
 
     if(!manager) {
-      return res.status(404).json({message: 'Incorrect Password or Email'})
+      return res.status(404).json({message: 'Incorrect Password or Email 🤷'})
     }
 
     if(manager.tscm_password === inputPassword) {
-      res.json({ success: true, manager })
+
+      const user = { val_mananger: manager.login_id };
+
+      const accessToken = jwt.sign(user, 'super secret key', {expiresIn: '10m'})
+      res.json({ accessToken })
     }
   } catch (error) {
-    console.error('error idk bro 🤷' , error)
-    res.status(500).json({ message: 'idk bro 🤷'})
+    console.error('Something really went wrong, check if DB is running 🤷' , error)
+    res.status(500).json({ message: 'Service unavailable 🤷'})
     console.log('bad')
   }
 })
@@ -269,5 +278,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}00!`);
 });

@@ -1,7 +1,5 @@
 .main-body-container{
-    width: 95%;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
 }
 
 .filt-wrapper{
@@ -9,29 +7,79 @@
     width: 100%;
     justify-content: space-evenly;
     align-items: center;
-
-    margin: 20px;
 }
 
 .body_container{
   display: flex;
+  margin: 0px;
+  padding:0px;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
-.left_container{
-  width: 25Vw;
-  margin-right: 5%;
-  background: rgba(126, 125, 125, 0.247);
+.left_container {
+  display: flex;
+  font-family: 'KelsonSans-Bold';
+  height: 98vh;
+  background-color:rgba(0, 0, 0, 0.3)
 }
 
-.left_container{
-  width: 75Vw;
+.logo {
+  margin:5px;
+  width: 200px;
+  height:fit-content;
+}
+
+.left_container select {
+  display: inline;
+  color:white;
+    border:solid rgb(116, 116, 116) 1px;
+    border-radius: 5px;
+    background-color: transparent;
+    height: 25px;
+}
+
+.left_container option{
+  background-color: black;
+}
+
+.right_container {
+  width: 100vw;
+  margin: 0px;
+  padding: 0px;
+}
+
+.collapse-filter-button {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+  color:white;
+  height:100vh;
+  font-weight: bold;
+  font-size: large;
+}
+
+.collapse-filter-button:hover{
+  transition: ease .5s;
+  cursor: pointer;
+  transform: scale(1.05);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.collapsed-filters-container {
+display: none;
+}
+
+.left-container-filters{
+  padding: 10px;
+  width: 600%;
+  height: 97.8vh;
+  background-color:rgba(0, 0, 0, 0.3)
 }
 
 .header-buttons{
-    background: #FF4742;
-  border: 1px solid #FF4742;
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  /* background: transparent;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   color: #FFFFFF;
   cursor: pointer;
@@ -41,16 +89,24 @@
   line-height: 16px;
   min-height: 40px;
   outline: 0;
-  padding: 12px 14px;
   text-align: center;
   text-rendering: geometricprecision;
   touch-action: manipulation;
+  margin: 10px; */
+  width: 180px;
+    height: 25px;
+    color:white;
+    border:solid rgb(255, 255, 255) 1px;
+    border-radius: 5px;
+    background-color: transparent;
+    margin: 10px;
 }
 
 .header-buttons:hover, .header-buttons:active{
-    background-color: initial;
-  background-position: 0 0;
-  color: #FF4742;
+  cursor: pointer;
+  transform: scale(1.05);
+  background: linear-gradient(135deg, rgba(21,4,89,1) 30%, rgba(247,130,24,1) 125%);
+  transition: ease 0.4s;
 }
 
 .header-buttons:active{
@@ -58,6 +114,12 @@
 }
 
 .filter-modal-overlay-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container{
   display: flex;
   justify-content: center;
   align-items: center;

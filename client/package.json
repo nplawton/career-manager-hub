@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite serve --host",
     "build": "vite build",
-    "test": "vitest",
-    "preview": "vite preview"
+    "test": "vitest"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
@@ -21,6 +20,7 @@
     "export-from-json": "^1.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.1"
   }
 }
